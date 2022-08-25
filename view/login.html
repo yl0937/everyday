@@ -1,0 +1,340 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script type=text/javascript src="index.html"></script>
+<script type="text/javascript">
+    let jwt =""
+    let userId = ""
+    // const myModule = require('./index.html');
+    // let val = myModule.hello();
+    function login() {
+        let user = $("#userid").val();
+        let password = $("#password").val();
+        var ajax = $.ajax({
+            url: "/login",
+            data: ({"userId" : user , "password" : password}),
+            type: 'POST',
+            success: function (result) {
+                if(result.code == 1000) {
+                    // alert(user);
+                    // $.getScript("index.html", function(){login_success();});
+                    location.replace('/');
+                    var cookie = getCookie('jwt')
+                    if (cookie!=""){
+                        jwt = cookie
+                    }
+                }
+                else if(result.code == 4000) {
+                    alert("로그인 정보가 없습니다.");
+                    location.replace('/loginPage');
+                }
+            }
+        });
+        alert("로그인");
+    }
+
+    function login_success(user) {
+        alert(user);
+        document.getElementsByClassName("test1").innerHTML = "hello";
+    }
+
+    function auto_check() {
+        var ajax = $.ajax({
+            url: "/auto",
+            type: 'GET',
+            headers: { 'x-access-token': jwt },
+            success: function (result) {
+                if(result.code == 1001) {
+                    userId = result.result;
+                    alert(userId + "님 환영합니다.")
+                    return userId;
+                }
+                else if(result.code == 3000) {
+                    userId = "";
+                    location.replace('/loginPage');
+                    alert("로그인 정보가 없습니다.");
+                    return userId;
+                }
+
+            }
+        });
+    }
+
+    function getCookie(name) {
+        var nameOfCookie = name+"=";
+        var x = 0;
+        while (x <= document.cookie.length) {
+            var y = (x + nameOfCookie.length);
+            if (document.cookie.substring(x, y) == nameOfCookie) {
+                if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+                endOfCookie = document.cookie.length;
+                return unescape(document.cookie.substring(y, endOfCookie));
+            }
+            x = document.cookie.indexOf(" ", x) + 1;
+            if (x == 0)
+            break;
+        }
+        return "";
+    }
+
+    function kakao() {
+        var ajax = $.ajax({
+            url: "/kakao",
+            type: 'GET'
+        });
+        alert("카카오 요청 보냄");
+    }
+
+    function main(){
+        location.replace('/');
+    }
+    let id = $('#userid');
+    let pw = $('#password');
+    let btn = $('#btn');
+
+    $(btn).on('click', function(){
+        if($(id).val() === "")
+        {
+            $(id).next('label').addClass('warning');
+            setTimeout(function(){
+                $('label').removeClass('warning');
+            },1500);
+        }
+        else if($(pw).val() === "")
+        {
+            $(pw).next('label').addClass('warning');
+            setTimeout(function(){
+                $('label').removeClass('warning');
+            },1500);
+        }
+    });
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+    *
+    {
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        /*width: 100%;*/
+        /*height: 100%;*/
+        list-style: none;
+        text-decoration: none;
+        border-collapse: collapse;
+    }
+
+    body
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url("/intro");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .login-form
+    {
+        position: relative;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    .int-area
+    {
+        width: 400px;
+        position: relative;
+        margin-top: 10px;
+    }
+    .int-area:first-child
+    {
+        margin-top:0;
+    }
+    .int-area input
+    {
+        width: 100%;
+        padding: 20px 10px 10px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #999;
+        font-size: 15px; color:#fff;
+        outline: none;
+    }
+    .int-area label
+    {
+        position: absolute; left: 10px; top: 15px;
+        font-size: 15px; color: #999;
+        transition: all .5s ease;
+    }
+
+    .int-area label.warning
+    {
+        color: red !important;
+        animation: warning .3s ease;
+        animation-iteration-count: 3;
+    }
+    @keyframes warning {
+        0% {transform: translateX(-2px);}
+        25% {transform: translateX(2px);}
+        50% {transform: translateX(-2px);}
+        75% {transform: translateX(2px);}
+    }
+
+    .int-area input:focus+label,
+    .int-area input:valid+label {
+        top:0;
+        font-size: 13px;
+        color: #166cea;
+    }
+    .btn-area
+    {
+        margin-top: 15px;
+    }
+    .btn-area button
+    {
+        cursor: pointer;
+        width: 100%;
+        height: 50px;
+        background: #166cea;
+        color: #fff;
+        font-size: 15px;
+        /*font-weight: bold;*/
+        border:none;
+        margin-top: 50px;
+        border-radius: 25px;
+    }
+    .caption
+    {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .caption a
+    {
+        font-size: 15px; color: #999;
+        text-decoration: none;
+    }
+    .btnLogin
+    {
+        cursor: pointer;
+        color: #fff;
+        text-align: right;
+    }
+    .EveryDay
+    {
+        /*position: absolute;*/
+        /*top: 40px;*/
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        position: absolute;
+        top: 40px;
+    }
+    .EveryDay a{
+
+        /* cursor: pointer; */
+        /*width: 264px;*/
+        /*height: 79px;*/
+        /*margin-top:40px;*/
+        /*margin-left:828px;*/
+        /* margin: 40px 640px 828px 693px; */
+        font-family: 'Fugaz One', cursive;
+        /*font-family: 'Noto Sans KR', sans-serif;*/
+        font-size: 60px;
+        /*font-weight: bold;*/
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        /*z-index:1;*/
+    }
+    .header
+    {
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        position: absolute;
+        /*width: 1840px;*/
+        height: 35px;
+        line-height: 35px;
+        top:20px;
+        left: 40px;
+        right: 40px;
+        /*margin: 40px 40px 0px 40px;*/
+        /*background-color: red;*/
+        /*z-index:2;*/
+
+    }
+    .nav-left
+    {
+        display:flex;
+        position: relative;
+    }
+    .Menu {
+        width: 50px;
+        height: 26px;
+        margin-left: 6px;
+        font-family: 'Roboto Light';
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.3;
+        letter-spacing: normal;
+        text-align: left;
+        color: #fff;
+        cursor: pointer;
+    }
+    .menu_icon
+    {
+        width: 33px;
+        height: 20px;
+        cursor: pointer;
+        /* border: solid 4px #fff; */
+    }
+    .kakao_icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        margin-top: 13px;
+        /*text-align: left;*/
+        /* border: solid 2px #fff; */
+    }
+</style>
+<body>
+<div class="EveryDay"><a href="/">Every Day</a></div>
+<nav class="header">
+    <ul class="nav-left">
+        <li><a href=""><img class="menu_icon" src="/menuicon"></a></li>
+        <li><a href=""><span class="Menu">Menu</span></a></li>
+        <!-- <button onclick="location.href='/loginPage'">로그인</button> -->
+    </ul>
+</nav>
+<section class="login-form">
+    <form action="">
+        <div class="btnLogin" onclick="location.replace('/signUpPage');" >회원가입</div>
+        <div class="int-area">
+            <input type="text" id="userid" name="userid" autocomplete="off" required>
+            <label for="userid">ID</label></br>
+        </div>
+        <div class="int-area">
+            <input type="password" id="password" name="password" autocomplete="off" required>
+            <label for="password">PASSWORD</label></br>
+        </div>
+
+        <div>
+            <a><img class="kakao_icon" onclick="kakao()" src="/kakaoicon"></a>
+        </div>
+
+        <div class="btn-area">
+            <button type="submit" id="btn" onclick="login()">LOGIN</button>
+        </div>
+
+    </form>
+    <div class="caption">
+        <a href="">Forgot Password?</a>
+    </div>
+</section>
+</body>
