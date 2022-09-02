@@ -1,3 +1,9 @@
+const passport = require('passport');
+const secret = require('../../../config/secret');
+const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
+const userProvider = require("../../app/User/userProvider");
+const userService = require("../../app/User/userService");
+
 module.exports = function(app){
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
@@ -31,6 +37,7 @@ module.exports = function(app){
     app.get('/logouticon',user.getLogout);
     app.get('/loginPage',user.loginPage);
     app.get('/kakaoicon',user.getkakao);
+    app.get('/navericon',user.getnaver);
 
     // 3. 회원가입 페이지 HTML
     app.get('/signUpPage',user.signUpPage);
@@ -59,11 +66,84 @@ module.exports = function(app){
         res.redirect('/');
     });
 
-
-
+    app.get('/naver',passport.authenticate('naver',{authType:'reprompt'}));
+    app.get(
+        '/auth/naver/callback',
+        passport.authenticate('naver',{failureRedirect:'/'}),
+        (req,res)=> {
+            res.redirect('/');
+        },
+    );
     //JWT 검증 API
     app.get('/auto', jwtMiddleware, user.check);
+    app.get('/naver', passport.authenticate('naver', { authType: 'reprompt' }));
+    app.get('/auth/naver/callback',user.getMain)
 
+
+
+    passport.use(
+        new NaverStrategy(
+           {
+              clientID: secret.NAVER_ID,
+              clientSecret: secret.NAVER_SECRET,
+              callbackURL: '/auth/naver/callback',
+              state : "RAMDOM_STATE"
+           },
+           async (accessToken, refreshToken, profile, done) => {
+              console.log('naver profile : ', profile);
+              try {
+                const exId = profile.nickname;
+                const Name = profile.name;
+                const sex = profile.gender;
+                const email = profile.email;
+                const password = "naver";
+                const userNum = profile.mobile;
+                const id = await userProvider.retrieveUser(exId);
+                if(id==undefined){
+                    const signUpResponse = await userService.createUser(
+                        exId, Name, 0 , sex, email, password, userNum
+                    );
+                    done(null);
+                } else {
+                    app.post('/login',{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            userId:exId,
+                            password:password			
+                        })
+                    });
+                    
+                    done(null);
+                }
+
+                
+                 // const exUser = await User.findOne({
+                 //    // 네이버 플랫폼에서 로그인 했고 & snsId필드에 네이버 아이디가 일치할경우
+                 //    where: { snsId: profile.id, provider: 'naver' },
+                 // });
+                 // // 이미 가입된 네이버 프로필이면 성공
+                 // if (exUser) {
+                 //    done(null, exUser);
+                 // } else {
+                 //    // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
+                 //    const newUser = await User.create({
+                 //       email: profile.email,
+                 //       nick: profile.name,
+                 //       snsId: profile.id,
+                 //       provider: 'naver',
+                 //    });
+                 //    done(null, newUser);
+                 // }
+              } catch (error) {
+                 console.error(error);
+                 done(error);
+              }
+           },
+        ),
+     );
 };
 
 

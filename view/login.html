@@ -77,11 +77,11 @@
     }
 
     function kakao() {
-        var ajax = $.ajax({
-            url: "/kakao",
-            type: 'GET'
-        });
-        alert("카카오 요청 보냄");
+        location.replace('/naver');
+        // var ajax = $.ajax({
+        //     url: "/naver",
+        //     type: 'GET'
+        // });
     }
 
     function main(){
@@ -325,7 +325,7 @@
         </div>
 
         <div>
-            <a><img class="kakao_icon" onclick="kakao()" src="/kakaoicon"></a>
+            <a><img class="kakao_icon" onclick="kakao()" src="/navericon"></a>
         </div>
 
         <div class="btn-area">

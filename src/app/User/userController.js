@@ -30,6 +30,10 @@ exports.getkakao = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/kakao_icon.png'));
 }
 
+exports.getnaver = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/naver.png'));
+}
+
 exports.getIntro = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/intro_bg.png'));
 }
@@ -117,6 +121,7 @@ exports.login = async function (req, res) {
     if(signInResponse.code == 1000){
         res.cookie('jwt',userId)
     }
+    console.log("성공")
     return res.send(signInResponse);
 };
 

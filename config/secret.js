@@ -2,4 +2,6 @@
 // TODO: .gitignore에 추가하는거 앚지 마세요!
 module.exports = {
     'jwtsecret' :  'capstone_jwt_secret_key_07040014087',
+    'NAVER_ID' : 'N1PVPGk0NdexqwXxxf52',
+    'NAVER_SECRET' : 'aj5U23DKBR'
 };

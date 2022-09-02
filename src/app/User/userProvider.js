@@ -11,7 +11,6 @@ exports.retrieveUser = async function (userId) {
   const userResult = await userDao.selectUserId(connection, userId);
 
   connection.release();
-
   return userResult[0];
 };
 
