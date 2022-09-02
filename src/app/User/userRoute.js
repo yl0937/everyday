@@ -90,23 +90,22 @@ module.exports = function(app){
                 const userNum = profile.mobile;
                 const id = await userProvider.retrieveUser(exId);
                 if(id==undefined){
+                    console.log("회원가입")
                     const signUpResponse = await userService.createUser(
                         exId, Name, 0 , sex, email, password, userNum
                     );
                     done(null);
                 } else {
-                    app.post('/login',{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            userId:exId,
-                            password:password			
-                        })
-                    });
-                    
+                    // exports.social = async function (req, res) {
+                    //     const signInResponse = await userService.postSignIn(userId, password);
+                    //     if(signInResponse.code == 1000){
+                    //         res.cookie('jwt',userId)
+                    //     }
+                    //     console.log("성공")
+                    //     return res.send(signInResponse);
+                    // };
                     done(null);
+                    app.get('/test',user.getTest);
                 }
 
               } catch (error) {
