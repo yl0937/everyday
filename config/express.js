@@ -8,6 +8,7 @@ const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
 const path = require('path');
 
+
 module.exports = function () {
     const app = express();
     app.use(compression());

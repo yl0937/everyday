@@ -1,11 +1,11 @@
-const passport = require('passport');
-const secret = require('../../../config/secret');
-const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
-const userProvider = require("../../app/User/userProvider");
-const userService = require("../../app/User/userService");
-const KakaoStrategy = require('passport-kakao').Strategy;
-
 module.exports = function(app){
+    const secret = require('../../../config/secret');
+    const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
+    const userProvider = require("../../app/User/userProvider");
+    const userService = require("../../app/User/userService");
+    const { response } = require('express');
+    const KakaoStrategy = require('passport-kakao').Strategy;
+
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
     const path = require('path');
@@ -58,18 +58,19 @@ module.exports = function(app){
     app.get('/exampleImage2',user.getExample2);
     app.get('/exampleImage3',user.getExample3);
 
-    app.get('/naver',passport.authenticate('naver',{authType:'reprompt'}));
+
+    //JWT 검증 API
+    app.get('/auto', jwtMiddleware, user.check);
+    app.get('/naver', passport.authenticate('naver', { authType: 'reprompt' }));
+
     app.get(
         '/auth/naver/callback',
         passport.authenticate('naver',{failureRedirect:'/'}),
         (req,res)=> {
-            res.redirect('/');
+            res.
+            res.redirect('/test');
         },
     );
-    //JWT 검증 API
-    app.get('/auto', jwtMiddleware, user.check);
-    app.get('/naver', passport.authenticate('naver', { authType: 'reprompt' }));
-    app.get('/auth/naver/callback',user.getMain)
 
     passport.use(
         new NaverStrategy(
@@ -79,7 +80,7 @@ module.exports = function(app){
               callbackURL: '/auth/naver/callback',
               state : "RAMDOM_STATE"
            },
-           async (accessToken, refreshToken, profile, done) => {
+           async (accessToken, refreshToken, profile, done,req,res) => {
               console.log('naver profile : ', profile);
               try {
                 const exId = profile.nickname;
@@ -96,6 +97,12 @@ module.exports = function(app){
                     );
                     done(null);
                 } else {
+                    fetch('/test',{
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                          },                        
+                    }).then((response) => console.log(response));
                     // exports.social = async function (req, res) {
                     //     const signInResponse = await userService.postSignIn(userId, password);
                     //     if(signInResponse.code == 1000){
@@ -105,7 +112,6 @@ module.exports = function(app){
                     //     return res.send(signInResponse);
                     // };
                     done(null);
-                    app.get('/test',user.getTest);
                 }
 
               } catch (error) {

@@ -5,6 +5,7 @@ const userService = require("../../app/User/userService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
 const passport = require('passport');
+const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('../../../config/mail');
@@ -20,7 +21,9 @@ var generateRandom = function (min, max) {
 let VarifiedCode;
 
 // /** API No. 0 [GET]테스트 API **/
-exports.getTest = async function (req, res) {
+exports.getTest = async function (req, res) 
+{
+    console.log("test");
     return res.send(response(baseResponse.SUCCESS))
 };
 
@@ -176,4 +179,3 @@ exports.sendMail = async function (req,res)
     })
     return number;
 }
-
