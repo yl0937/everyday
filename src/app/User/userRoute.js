@@ -135,7 +135,7 @@ module.exports = function(app){
             clientSecret: 'tYgFpoReW7PJROELU6dWSn1HYCBXCGmh'},
             async (accessToken, refreshToken, profile, done) =>
             {
-                console.log(accessToken);
+                console.log(profile);
                 done(null);
             }
             
