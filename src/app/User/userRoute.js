@@ -3,6 +3,7 @@ const secret = require('../../../config/secret');
 const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
 const userProvider = require("../../app/User/userProvider");
 const userService = require("../../app/User/userService");
+const KakaoStrategy = require('passport-kakao').Strategy;
 
 module.exports = function(app){
     const user = require('./userController');
@@ -57,15 +58,6 @@ module.exports = function(app){
     app.get('/exampleImage2',user.getExample2);
     app.get('/exampleImage3',user.getExample3);
 
-    // 6. 카카오 로그인 API
-    app.post('/kakao-login',user.kakaoLogIn);
-    app.get('/kakao', passport.authenticate('kakao-login'));
-    app.get('/kakao/oauth', passport.authenticate('kakao-login', {
-        failureRedirect : '/',
-    }), (req, res) => {
-        res.redirect('/');
-    });
-
     app.get('/naver',passport.authenticate('naver',{authType:'reprompt'}));
     app.get(
         '/auth/naver/callback',
@@ -78,8 +70,6 @@ module.exports = function(app){
     app.get('/auto', jwtMiddleware, user.check);
     app.get('/naver', passport.authenticate('naver', { authType: 'reprompt' }));
     app.get('/auth/naver/callback',user.getMain)
-
-
 
     passport.use(
         new NaverStrategy(
@@ -119,24 +109,6 @@ module.exports = function(app){
                     done(null);
                 }
 
-                
-                 // const exUser = await User.findOne({
-                 //    // 네이버 플랫폼에서 로그인 했고 & snsId필드에 네이버 아이디가 일치할경우
-                 //    where: { snsId: profile.id, provider: 'naver' },
-                 // });
-                 // // 이미 가입된 네이버 프로필이면 성공
-                 // if (exUser) {
-                 //    done(null, exUser);
-                 // } else {
-                 //    // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
-                 //    const newUser = await User.create({
-                 //       email: profile.email,
-                 //       nick: profile.name,
-                 //       snsId: profile.id,
-                 //       provider: 'naver',
-                 //    });
-                 //    done(null, newUser);
-                 // }
               } catch (error) {
                  console.error(error);
                  done(error);
@@ -144,6 +116,29 @@ module.exports = function(app){
            },
         ),
      );
+
+     app.get('/kakao', passport.authenticate('kakao'));
+     app.get('/kakao/oauth',
+     passport.authenticate('kakao',{
+        failureRedirect: '/',
+     }),
+        (req,res) => {
+            res.redirect('/');
+        },
+     );
+    
+     passport.use(
+        new KakaoStrategy(
+            {
+            clientID: '5898d4ba2fdda040b411119996107a41',
+            callbackURL: '/kakao/oauth',
+            clientSecret: 'tYgFpoReW7PJROELU6dWSn1HYCBXCGmh'},
+            async (accessToken, refreshToken, profile, done) =>
+            {
+                console.log(accessToken);
+                done(null);
+            }
+            
+        )
+     );
 };
-
-

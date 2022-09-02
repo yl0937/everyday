@@ -4,7 +4,6 @@ const userController = require("../../app/User/userController");
 const userService = require("../../app/User/userService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
-const KakaoStrategy = require('passport-kakao').Strategy;
 const passport = require('passport');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
@@ -145,52 +144,7 @@ exports.getExample3 = async function (req, res) {
 
 
 /** API No. 6 [GET]소셜 로그인 API **/
-exports.kakaoLogIn = async function (req,res)
-{
-    const {accessToken} = req.body;
-    if(!accessToken)
-        return res.send(response(baseResponse.ACCESSTOKEN_EMPTY));
 
-    let profile;
-    try {
-        profile = await axios.get('https://kapi.kakao.com/v2/user/me', {
-            headers: {
-                Authorization: 'Bearer ' + accessToken,
-                'Content-Type': 'application/json'
-            }
-        });
-        console.log(profile);
-        // const name = profile.data.kakao_account.profile['nickname'];
-        // const email = profile.data.kakao_account.email;
-        // const password = "kakaoLogin";
-        // const number = "kakaoLogin";
-        // const emailRows = await userProvider.emailCheck(email);
-        // if (emailRows.length > 0) {
-        //     const signInResponse = await userService.postSignIn(email, password);
-        //     return res.send(signInResponse);
-        // } else {
-        //     const signUpResponse = await userService.createUser(
-        //         email,
-        //         password,
-        //         name,
-        //         number
-        //     );
-        //     const signInResponse = await userService.postSignIn(email, password);
-        return res.send(response(baseResponse.SUCCESS));
-    }
-    catch (err){
-        return res.send(response(baseResponse.ACCESS_TOKEN_ERROR));
-    }
-};
-passport.use('kakao-login', new KakaoStrategy({
-        clientID: '5898d4ba2fdda040b411119996107a41',
-        callbackURL: 'http://3.36.92.132:3000/kakao/oauth',
-    clientSecret: 'tYgFpoReW7PJROELU6dWSn1HYCBXCGmh'},
-    async (accessToken, refreshToken, profile, done) =>
-    {
-        console.log(accessToken);
-        return done;
-    }));
 
 /** JWT 토큰 검증 API[GET] /auto-login **/
 exports.check = async function (req, res) {
