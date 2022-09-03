@@ -6,7 +6,7 @@ module.exports = function(app){
     const { response } = require('express');
     const KakaoStrategy = require('passport-kakao').Strategy;
 
-    const user = require('./userController');
+    const user = require('./userController'); 
     const jwtMiddleware = require('../../../config/jwtMiddleware');
     const path = require('path');
     const passport = require('passport');
