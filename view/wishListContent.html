@@ -9,6 +9,25 @@
     <!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
     <!--    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">-->
     <!--<link rel="stylesheet" type="text/css" href="/var/www/html/api-server-node-js/view/style.css">-->
+    <script type="text/javascript">
+        count = 0
+        function check_wish() {
+            count = count+1
+
+            if(count % 2 == 1) {
+                document.getElementById("do_like_icon").src = "/dontlikeicon"
+            }
+            else if(count %2 == 0) {
+                document.getElementById("do_like_icon").src = "/likeicon"
+            }
+
+
+        }
+
+        function detail_content() {
+            document.getElementById("do_detail_icon").src = "/detailicon"
+        }
+    </script>
 </head>
 <body>
 <style>
@@ -401,19 +420,16 @@
       overflow: hidden;
     }
 
-    .like_list>a:hover img {
+    .like_list>div:hover .content_img {
         transform: scale(1.5);
         transition: transform 1s;
         filter: brightness(20%);
     }
 
-    .like_list>a:hover .contents{
+    .like_list>div:hover .contents{
         opacity: 1;
     }
 
-    /*.contents{*/
-    /*    opacity: 0;*/
-    /*}*/
 
 </style>
 
@@ -450,14 +466,17 @@
         <div class="like_list"><a href=""><img class="content_img" src="like4.jpg"></a></div>
 
         <div class="like_list">
-            <a href="">
+            <div>
                 <img class="content_img" src="/content_ex">
                 <div class="contents">
                     <p>콘텐츠 제목</p><br>
                     <p>콘텐츠 간단한 설명</p><br>
-                    <p>플랫폼</p>
+                    <p>플랫폼</p><br>
+                    <img id="do_like_icon" src="/likeicon" width="40" height="40" onclick="check_wish()">
+                    <a href=""><img id="do_detail_icon" src="/dodetailicon" width="45" height="45" onclick="detail_content()"></a>
                 </div>
-            </a>
+            </div>
+
         </div>
 
         <div class="like_list"><a href=""><img class="content_img" src="like6.jpg"></a></div>

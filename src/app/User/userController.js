@@ -82,6 +82,14 @@ exports.wishListPageOut = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/dontlike1.png'));
 }
 
+exports.detailPageIn = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/dodetail.png'));
+}
+
+exports.detailPageOut = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/detail.png'));
+}
+
 exports.contentImage = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/like5.png'));
 }

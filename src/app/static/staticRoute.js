@@ -40,4 +40,7 @@ module.exports = function(app){
     app.get('/exampleImage',user.getExample);
     app.get('/exampleImage2',user.getExample2);
     app.get('/exampleImage3',user.getExample3);
+
+    app.get('/dodetailicon', user.detailPageIn);
+    app.get('/detailicon', user.detailPageOut);
 };
