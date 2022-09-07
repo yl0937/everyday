@@ -31,6 +31,7 @@ module.exports = function () {
 
     require('../src/app/User/userRoute')(app);
     require('../src/app/Content/contentRoute')(app);
+    require('../src/app/static/staticRoute')(app);
 
     return app;
 };
