@@ -1,3 +1,4 @@
+const user = require("../User/userController");
 module.exports = function(app){
     const secret = require('../../../config/secret');
     const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
@@ -23,6 +24,7 @@ module.exports = function(app){
 
     // 찜 목록
     app.get('/likeicon', user.wishlistPageIn);
+    app.get('/dontlikeicon', user.wishListPageOut);
     app.get('/wishListPage', user.wishListPage);
     app.get('/content_ex', user.contentImage);
 
