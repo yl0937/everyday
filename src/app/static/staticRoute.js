@@ -37,6 +37,7 @@ module.exports = function(app){
     app.get('/loginPage',user.loginPage);
     app.get('/kakaoicon',user.getkakao);
     app.get('/navericon',user.getnaver);
+    app.get('/pop_up',user.pop_up);
 
     app.get('/signUpPage',user.signUpPage);
     app.get('/exampleImage',user.getExample);
