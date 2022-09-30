@@ -135,6 +135,10 @@ exports.login = async function (req, res) {
     return res.send(signInResponse);
 };
 
+exports.pop_up = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/pop_up.html'));
+}
+
 exports.searchPage = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/searchService.html'));
 }

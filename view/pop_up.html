@@ -1,0 +1,80 @@
+<!--<script type=text/javascript src="login.html"></script>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pop</title>
+    <style>
+        .popup {
+            z-index: 1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            min-width: 300px;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 55px -25px rgb(0 0 0 / 100%);
+        }
+        .popup > .title{
+            border-radius: 15px 15px 0 0;
+            min-height: 40px;
+            color: #fff;
+            background-color: #166cea;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        .popup > .title_bot{
+            border-radius: 0px 0px 15px 15px;
+            min-height: 40px;
+            color: #fff;
+            background-color: #166cea;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        .popup > .content {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .popup > .cmd {
+            bottom: 0;
+            min-height: 40px;
+            padding: 15px 15px;
+            box-sizing: border-box;
+            border-radius: 0 0 15px 15px;
+            min-height: 40px;
+            text-align: right;
+        }
+        .popup > .cmd .button {
+            border-radius: 8px;
+            padding: 5px 10px;
+            border: 1px solid #aaa;
+        }
+        .popup > .cmd .button:hover {
+            color: #fff;
+            background-color: #000;
+            border-color: #000;
+        }
+    </style>
+</head>
+<body>
+<form method="post" class="post-form">
+    <div class="form-group popup">
+
+        <div class="form-control title">OST 목록</div>
+        <div class="content">
+            <p>
+                ost 목록입니다.
+            </p>
+        </div>
+        <div class="form-control title_bot">
+            <input type="button" name="btnclose" class="button" value="닫기" onclick="self.close();">
+        </div>
+    </div>
+</form>
+
+</body>
+</html>
