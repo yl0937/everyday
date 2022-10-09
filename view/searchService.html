@@ -38,6 +38,28 @@
             }
         });
     }
+    function detail_modal() {
+        let name = getCookie('cookie');
+        var ajax = $.ajax({
+            url: "/content-name",
+            type: 'POST',
+            data: ({"name" : name}),
+            success: function (result) {
+                if(result.code == 1000) {
+                    let h = 0
+                    const img = resultList[h]["src"];
+                    const name = resultList[h]["name"];
+                    const platform = resultList[h]["platform"];
+                    const actor = resultList[h]["actor"];
+                    const explain = resultList[h]["explain"];
+                    alert(name);
+                }
+                else if(result.code == 4000) {
+                    alert("검색 정보가 없습니다.");
+                }
+            }
+        });
+    }
 
     function getCookie(name) {
         var nameOfCookie = name+"=";
@@ -482,7 +504,7 @@
 
 <section class="search-view">
     <span id="search-total">검색 결과 건</span>
-    <div class="search-content">
+    <div class="search-content" onclick="detail_modal()">
         <ul id="content">
         </ul>
     </div>
