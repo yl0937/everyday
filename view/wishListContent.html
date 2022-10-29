@@ -298,12 +298,12 @@
     }
     .search-view
     {
-        width: 1400px;
+        width: 1300px;
         /*height: 1000px;*/
-        top: 300px;
+        top: 280px;
         /* background: white; */
         position: absolute;
-        margin-top: 10px; 
+        /*margin-top: 10px; */
         text-align: left;
     }
     .search-content
@@ -324,8 +324,8 @@
     .content_img
     {
         width: 250px;
-        height: 300px;
-        margin-right: 30px;
+        height: 150px;
+        margin-right: 10px;
         margin-bottom: 30px;
         /* margin-right: 19px; */
         padding: 0px;
@@ -428,6 +428,12 @@
         opacity: 1;
     }
 
+    .sub_title {
+        font-size: 18px; color:#fff;
+    }
+    .content-list {
+        margin-top: 20px;
+    }
 
 </style>
 
@@ -457,31 +463,22 @@
 </section>
 
 <section class="search-view">
-    <div class="search-content">
-        <div class="like_list"><a href=""><img class="content_img" src="like1.jpg"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like2.jfif"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like3.jpg"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like4.jpg"></a></div>
+    <span class="sub_title">추천 콘텐츠</span>
+    <div class="content-list">
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+    </div>
 
-        <div class="like_list">
-            <div>
-                <img class="content_img" src="/content_ex">
-                <div class="contents">
-                    <p>콘텐츠 제목</p><br>
-                    <p>콘텐츠 간단한 설명</p><br>
-                    <p>플랫폼</p><br>
-                    <img id="do_like_icon" src="/likeicon" width="40" height="40" onclick="check_wish()">
-                    <a href=""><img id="do_detail_icon" src="/dodetailicon" width="45" height="45" onclick="detail_content()"></a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="like_list"><a href=""><img class="content_img" src="like6.jpg"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like7.jpg"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like8.jfif"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like9.jpg"></a></div>
-        <div class="like_list"><a href=""><img class="content_img" src="like10.jpg"></a></div>
+    <span class="sub_title">찜한 콘텐츠</span>
+    <div class="content-list">
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
+        <a href=""><img class="content_img" src="/content_ex"></a>
     </div>
 </section>
 
