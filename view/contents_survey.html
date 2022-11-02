@@ -19,6 +19,18 @@
             element[i].addEventListener("click", color_change);
         }
     }
+    function submit()
+    {
+        location.replace('/')
+    }
+    function img_change1()
+    {
+        document.getElementById("1").setAttribute("src", "/harryPoster");
+    }
+    function img_change2()
+    {
+        document.getElementById("2").setAttribute("src", "/marblePoster");
+    }
 
     init();
 
@@ -379,24 +391,27 @@
 
     <div class="survey-content">
         <label class="question">가장 좋아하는 콘텐츠는 무엇인가요?</label><br>
-        <img class="recent_con_img" src="like1.jpg">
-        <img class="recent_con_img" src="like2.jfif">
-        <img class="recent_con_img" src="like3.jpg">
-        <img class="recent_con_img" src="like4.jpg">
-        <img class="recent_con_img" src="like4.jpg">
-        <img class="recent_con_img" src="like4.jpg">
-        <img class="recent_con_img" src="like4.jpg">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/239194171/s592/about-time.webp">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/179309024/s592/tajja.webp">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/237959254/s592/frozen.webp">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/132400568/s592/alradin-2019.webp">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/70251722/s592/vesper.webp">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/10127279/s592/taegsiunjeonsa.webp">
+        <img class="recent_con_img" src="https://images.justwatch.com/poster/251207693/s592/ojingeo-geim.webp">
     </div>
 
     <div class="survey-content">
         <label class="question">관심있는 연예인은 누구인가요?</label><br>
-        <img class="recent_con_img" src="like1.jpg">
-        <img class="recent_con_img" src="like2.jfif">
-        <img class="recent_con_img" src="like3.jpg">
-        <img class="recent_con_img" src="like4.jpg">
-        <img class="recent_con_img" src="like4.jpg">
-        <img class="recent_con_img" src="like4.jpg">
-        <img class="recent_con_img" src="like4.jpg">
+        <img class="recent_con_img" src="/iu">
+        <img class="recent_con_img" src="/timothee">
+        <img class="recent_con_img" src="/lee">
+        <img class="recent_con_img" src="/goeun">
+        <img class="recent_con_img" src="/yohanson">
+        <img class="recent_con_img" src="/tomcruse">
+        <img class="recent_con_img" src="/willSmith">
+    </div>
+    <div>
+        <input type="button" class="genre_btn" onclick="submit()" value="제출"/>
     </div>
 
 
