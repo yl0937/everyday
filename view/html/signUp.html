@@ -28,7 +28,8 @@
                     // alert("완료");
                     // location.replace('/');
                 if(response.isSuccess == true) {
-                    location.replace('/surveyPage'); //contents_survey 페이지로 이동하기
+                    // location.replace('/surveyPage'); //contents_survey 페이지로 이동하기
+                    signIn(userId,password)
                 }
                 else {
                     // alert("실패");
@@ -44,6 +45,28 @@
     function getGender(event) {
         document.getElementById('result').innerText =
             event.target.value;
+    }
+    function signIn(userId,password)
+    {
+        var ajax = $.ajax({
+            url: "/login",
+            data: (
+                {"userId" : userId , "password" : password}
+            ),
+            type: 'POST',
+            dataType : 'JSON',
+            success: function(response) {
+                if(response.isSuccess == true) {
+                    location.replace('/surveyPage');
+
+                }
+                else {
+                    alert("실패");
+                    // location.replace('/');
+                }
+            }
+        });
+
     }
 </script>
 <style>

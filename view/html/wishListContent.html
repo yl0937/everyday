@@ -9,6 +9,7 @@
     <!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
     <!--    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">-->
     <!--<link rel="stylesheet" type="text/css" href="/var/www/html/api-server-node-js/view/style.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
 
         function check()
@@ -17,10 +18,40 @@
             if (token.length==0){
                 location.replace('/loginPage')
             }else{
-                alert(token)
+                var ajax = $.ajax({
+                    url: "/liked-list",
+                    type: 'POST',
+                    data: ({"userId" : token}),
+                    success: function (response) {
+                        likeList = response.result;
+                        if(response.code==1000)
+                        {
+                            for(var i=0;i<likeList.length;i++)
+                            {
+                                $("#like-content").append("<a href=\"\"><img class=\"content_img\" src=" +likeList[i].csSrc+ "></a>");
+                            }
+                        }
+                    }
+                });
+                var ajax = $.ajax({
+                    url: "/recommend",
+                    type: 'POST',
+                    data: ({"userId" : token}),
+                    success: function (response) {
+                        recommend = response.result;
+                        if(response.code==1000)
+                        {
+                            for(var i=0;i<recommend.length;i++)
+                            {
+                                $("#recommen-list").append("<a href=\"\"><img class=\"content_img\" src=" +recommend[i].src+ "></a>");
+                            }
+                        }
+                    }
+                });
             }
 
         }
+
 
         function getCookie(name) {
             var nameOfCookie = name+"=";
@@ -493,21 +524,10 @@
 
 <section class="search-view">
     <span class="sub_title">추천 콘텐츠</span>
-    <div class="content-list">
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
+    <div id="recommen-list" class="content-list">
     </div>
-
     <span class="sub_title">찜한 콘텐츠</span>
-    <div class="content-list">
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
-        <a href=""><img class="content_img" src="/content_ex"></a>
+    <div id="like-content" class="content-list">
     </div>
 </section>
 

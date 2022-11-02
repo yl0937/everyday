@@ -67,6 +67,35 @@ async function selectOst(connection,contentId) {
     return contentRow;
 }
 
+// 컨텐츠-태그 조회
+async function selectLikeContentAll(connection,userId) {
+    const selectContentTagQuery = `
+        SELECT contentId FROM likedlist where userId = ?;
+                 `;
+    const [contentRow] = await connection.query(selectContentTagQuery,userId);
+    return contentRow;
+}
+
+// 컨텐츠-태그 조회
+async function selectContentName(connection,contentId) {
+    const selectContentTagQuery = `
+        select name from content where id = ?;
+                 `;
+    const [contentRow] = await connection.query(selectContentTagQuery,contentId);
+    return contentRow[0].name;
+}
+
+// 컨텐츠-태그 조회
+async function selectRContent(connection,userId) {
+    const selectContentTagQuery = `
+        select name,src from content where id in (
+            select contentId from contentgenre where contentgenre.genre in
+                                                     (select interestId from userinterest where userId=?)) limit 5;
+                 `;
+    const [contentRow] = await connection.query(selectContentTagQuery,userId);
+    return contentRow;
+}
+
 
 module.exports = {
   selectContentAll,
@@ -75,6 +104,8 @@ module.exports = {
   insertUserInterest,
   selectContentByName,
   selectUserContentId,
-  selectOst
-
+  selectOst,
+  selectLikeContentAll,
+  selectContentName,
+  selectRContent
 };

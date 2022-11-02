@@ -1,10 +1,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script type=text/javascript src="index.html"></script>
+<script type="text/javascript" src="index.html"></script>
 <script type="text/javascript">
     let resultList = []
     let list_len = 0
+    var likeIcon = []
     function searchName() {
+        likeIcon = likecheck()
+        alert(likeIcon)
         var ajax = $.ajax({
             url: "/all",
             type: 'GET',
@@ -21,15 +24,38 @@
                         const platform = resultList[h]["platform"];
                         const actor = resultList[h]["actor"];
                         const explain = resultList[h]["explain"];
-                        $("#content").append(
-                            "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
-                            "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
-                            "<li><a href=\"\"><div id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
-                            "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
-                            "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>" +
-                            "<li><div id=\"content_interest\"><label><img id=\"do_like_icon\" src=\"/likeicon\" width=\"40\" height=\"40\" onclick=\"check_wish()\"></label></div></li>"+
-                            "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"detail_content()\"></label></div></a></li><ul/>"
-                        );
+                        var likeName = ""
+                        for(var j=0;j<likeIcon.length;j++)
+                        {
+                            if(name==likeIcon[j])
+                            {
+                                likeName = likeIcon[j]
+                            }
+
+                        }
+                        if(name==likeName)
+                        {
+                            $("#content").append(
+                                "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>"+
+                                "<li><div id=\"content_interest\"><label><img id=\"do_like_icon\" src=\"/dontlikeicon\" width=\"40\" height=\"40\" onclick=\"check_wish(1)\"></label></div></li>"+
+                                "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"detail_content()\"></label></div></a></li><ul/>"
+                            );
+                        }
+                        else {
+                            $("#content").append(
+                                "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
+                                "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>" +
+                                "<li><div id=\"content_interest\"><label><img id=\"do_like_icon\" src=\"/likeicon\" width=\"40\" height=\"40\" onclick=\"check_wish(2)\"></label></div></li>"+
+                                "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"detail_content()\"></label></div></a></li><ul/>"
+                            );
+                        }
                     }
                 }
                 else if(result.code == 4000) {
@@ -38,17 +64,63 @@
             }
         });
     }
+    function likecheck()
+    {
+        let token = getCookie('jwt');
+        var ajax = $.ajax({
+            url: "/liked-list",
+            type: 'POST',
+            data: ({"userId" : token}),
+            success: function (response) {
+                likeList = response.result;
+                if(response.code==1000)
+                {
+
+                    for(var i=0;i<likeList.length;i++)
+                    {
+                        likeIcon.push(likeList[i].cName)
+                    }
+
+                }
+            }
+        });
+        return likeIcon;
+    }
+
+    function getCookie(name) {
+        var nameOfCookie = name+"=";
+        var x = 0;
+        while (x <= document.cookie.length) {
+            var y = (x + nameOfCookie.length);
+            if (document.cookie.substring(x, y) == nameOfCookie) {
+                if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+                    endOfCookie = document.cookie.length;
+                return unescape(document.cookie.substring(y, endOfCookie));
+            }
+            x = document.cookie.indexOf(" ", x) + 1;
+            if (x == 0)
+                break;
+        }
+        return "";
+    }
 
     count = 0
-    function check_wish() {
+    function check_wish(value) {
         count = count+1
-
-        if(count % 2 == 1) {
+        if(value==1)
+        {
             document.getElementById("do_like_icon").src = "/dontlikeicon"
         }
-        else if(count %2 == 0) {
+        if(value==2)
+        {
             document.getElementById("do_like_icon").src = "/likeicon"
         }
+        // if(count % 2 == 1) {
+        //
+        // }
+        // else if(count %2 == 0) {
+        //
+        // }
     }
 
     function detail_content() {

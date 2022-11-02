@@ -24,6 +24,10 @@ module.exports = function(app){
 
     //OST 추천
     app.post('/ost',content.postOst);
+
+    app.post('/liked-list',content.postLikedList);
+
+    app.post('/recommend',content.postRecommend);
 };
 
 

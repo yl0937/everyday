@@ -27,32 +27,22 @@ module.exports = function(app){
     // 08. 전체 검색 페이지
     app.get('/searchAll',static.searchAll);
 
-    app.get('/intro',static.getIntro); // 배경이미지
+    app.get('/intro',static.getIntro);
     app.get('/searchicon',static.getSearch);
     app.get('/pointericon',static.getPointer);
     app.get('/menuicon',static.getIcon);
     app.get('/likeicon', static.wishlistPageIn);
     app.get('/dontlikeicon', static.wishListPageOut);
-
     app.get('/content_ex', static.contentImage);
-
-    // 2. 로그인 페이지 HTML
     app.get('/loginicon',static.getLogin);
     app.get('/logouticon',static.getLogout);
-
     app.get('/kakaoicon',static.getkakao);
     app.get('/navericon',static.getnaver);
-
     app.get('/exampleImage',static.getExample);
     app.get('/exampleImage2',static.getExample2);
     app.get('/exampleImage3',static.getExample3);
-
     app.get('/dodetailicon', static.detailPageIn);
     app.get('/detailicon', static.detailPageOut);
-
-    app.get('/harryPoster',static.getHarry);
-    app.get('/marblePoster',static.getmarble);
-
     app.get('/iu',static.getIu);
     app.get('/timothee',static.getTimo);
     app.get('/lee',static.getLee);
@@ -60,4 +50,18 @@ module.exports = function(app){
     app.get('/yohanson',static.getYohanson);
     app.get('/tomcruse',static.getTom);
     app.get('/willSmith',static.getSmith);
+    app.get('/interest1',static.getInterest1);
+    app.get('/interest2',static.getInterest2);
+    app.get('/interest3',static.getInterest3);
+    app.get('/interest4',static.getInterest4);
+    app.get('/interest5',static.getInterest5);
+    app.get('/interest6',static.getInterest6);
+    app.get('/interest7',static.getInterest7);
+    app.get('/interest8',static.getInterest8);
+    app.get('/interest9',static.getInterest9);
+    app.get('/interest10',static.getInterest10);
+    app.get('/interest11',static.getInterest11);
+    app.get('/interest12',static.getInterest12);
+    app.get('/interest13',static.getInterest13);
+    app.get('/interest14',static.getInterest14);
 };

@@ -131,3 +131,59 @@ exports.getExample2 = async function (req, res) {
 exports.getExample3 = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/img/exmpleImage3.jpg'));
 }
+
+exports.getInterest1 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest1.png'));
+}
+
+exports.getInterest2 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest2.png'));
+}
+
+exports.getInterest3 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest3.png'));
+}
+
+exports.getInterest4 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest4.png'));
+}
+
+exports.getInterest5 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest5.png'));
+}
+
+exports.getInterest6 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest6.png'));
+}
+
+exports.getInterest7 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest7.png'));
+}
+
+exports.getInterest8 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest8.png'));
+}
+
+exports.getInterest9= async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest9.png'));
+}
+
+exports.getInterest10 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest10.png'));
+}
+
+exports.getInterest11 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest11.png'));
+}
+
+exports.getInterest12 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest12.png'));
+}
+
+exports.getInterest13 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest13.png'));
+}
+
+exports.getInterest14 = async function (req, res) {
+    return res.sendFile(path.join(__dirname,'../../../view/img/interest14.png'));
+}
