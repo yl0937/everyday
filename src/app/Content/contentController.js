@@ -30,7 +30,8 @@ exports.getContent = async function (req, res) {
 
 // /** API No. 2 [POST]유저 관심사 추가API **/
 exports.postInterest = async function (req, res) {
-    const userIdResult = req.verifiedToken.userId;
+    // const userIdResult = req.verifiedToken.userId;
+    const userIdResult = req.body.userId;
     const tagId = req.body.tagId;
     const userIdres = await userProvider.retrieveUserId(userIdResult);
     const userId = userIdres['id']
@@ -44,6 +45,18 @@ exports.getContentName = async function (req, res) {
     setname = "%" + name +"%"
     const getContentRes = await contentProvider.retrieveContentByName(setname);
     return res.send(response(baseResponse.SUCCESS,getContentRes))
+};
+
+// /** API No. 2 [GET]컨텐츠 리스트 API **/
+exports.postOst = async function (req, res) {
+    const userId = req.body.userId;
+    const content = await contentProvider.retrieveUserContentId(userId);
+    const ostResult = await contentProvider.retrieveOst(content);
+    const img = ostResult.img;
+    const url = ostResult.url;
+    const name = ostResult.name;
+    const result = {img, url,name};
+    return res.send(response(baseResponse.SUCCESS,result))
 };
 
 

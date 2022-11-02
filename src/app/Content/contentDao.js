@@ -49,12 +49,32 @@ async function insertUserInterest(connection,insertInfo) {
     return InsertRow;
 }
 
+// 컨텐츠-태그 조회
+async function selectUserContentId(connection,userId) {
+    const selectContentTagQuery = `
+        SELECT contentId FROM viewlist where userId = ? ORDER BY contentId DESC LIMIT 1;
+                 `;
+    const [contentRow] = await connection.query(selectContentTagQuery,userId);
+    return contentRow;
+}
+
+// 컨텐츠-태그 조회
+async function selectOst(connection,contentId) {
+    const selectContentTagQuery = `
+        SELECT img,url,name FROM contentost where contentId = ?;
+                 `;
+    const [contentRow] = await connection.query(selectContentTagQuery,contentId);
+    return contentRow;
+}
+
 
 module.exports = {
   selectContentAll,
   selectTagId,
   selectContentByTag,
   insertUserInterest,
-    selectContentByName
+  selectContentByName,
+  selectUserContentId,
+  selectOst
 
 };

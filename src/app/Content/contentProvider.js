@@ -37,3 +37,19 @@ exports.retrieveContentByName = async function (name) {
     return contentResult;
 };
 
+exports.retrieveUserContentId = async function (usesrId) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const contentResult = await contentDao.selectUserContentId(connection,usesrId);
+    connection.release();
+
+    return contentResult[0].contentId;
+};
+
+exports.retrieveOst = async function (contentId) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const contentResult = await contentDao.selectOst(connection,contentId);
+    connection.release();
+
+    return contentResult[0];
+};
+

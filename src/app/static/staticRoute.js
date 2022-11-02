@@ -1,49 +1,63 @@
-const user = require("../User/userController");
+const static = require("../Static/staticController");
 module.exports = function(app){
-    const secret = require('../../../config/secret');
-    const { Strategy: NaverStrategy, Profile: NaverProfile } = require('passport-naver-v2');
-    const userProvider = require("../../app/User/userProvider");
-    const userService = require("../../app/User/userService");
-    const { response } = require('express');
-    const KakaoStrategy = require('passport-kakao').Strategy;
 
-    const user = require('../../app/User/userController'); 
-    const jwtMiddleware = require('../../../config/jwtMiddleware');
-    const path = require('path');
-    const passport = require('passport');
+    //html
 
-    app.get('/intro',user.getIntro); // 배경이미지
-    app.get('/searchicon',user.getSearch);
-    app.get('/searchPage',user.searchPage);
-    app.get('/searchAll',user.searchAll);
-    app.get('/pointericon',user.getPointer);
+    // 01. 메인 페이지
+    app.get('/',static.getMain);
 
-    // 1. 메인 API
-    app.get('/',user.getMain);
-    app.get('/menuicon',user.getIcon);
+    // 02. 로그인 페이지
+    app.get('/loginPage',static.loginPage);
 
-    // 찜 목록
-    app.get('/likeicon', user.wishlistPageIn);
-    app.get('/dontlikeicon', user.wishListPageOut);
-    app.get('/wishListPage', user.wishListPage);
-    app.get('/content_ex', user.contentImage);
+    // 03. 찜목록 페이지
+    app.get('/wishListPage', static.wishListPage);
 
-    // 설문조사 페이지
-    app.get('/surveyPage', user.surveyPage);
+    // 04. 회원가입 페이지
+    app.get('/signUpPage',static.signUpPage);
+
+    // 05. 선호도 조사 페이지
+    app.get('/surveyPage', static.surveyPage);
+
+    // 06. ost 추천 팝업 페이지
+    app.get('/pop_up',static.pop_up);
+
+    // 07. 검색 페이지
+    app.get('/searchPage',static.searchPage);
+
+    // 08. 전체 검색 페이지
+    app.get('/searchAll',static.searchAll);
+
+    app.get('/intro',static.getIntro); // 배경이미지
+    app.get('/searchicon',static.getSearch);
+    app.get('/pointericon',static.getPointer);
+    app.get('/menuicon',static.getIcon);
+    app.get('/likeicon', static.wishlistPageIn);
+    app.get('/dontlikeicon', static.wishListPageOut);
+
+    app.get('/content_ex', static.contentImage);
 
     // 2. 로그인 페이지 HTML
-    app.get('/loginicon',user.getLogin);
-    app.get('/logouticon',user.getLogout);
-    app.get('/loginPage',user.loginPage);
-    app.get('/kakaoicon',user.getkakao);
-    app.get('/navericon',user.getnaver);
-    app.get('/pop_up',user.pop_up);
+    app.get('/loginicon',static.getLogin);
+    app.get('/logouticon',static.getLogout);
 
-    app.get('/signUpPage',user.signUpPage);
-    app.get('/exampleImage',user.getExample);
-    app.get('/exampleImage2',user.getExample2);
-    app.get('/exampleImage3',user.getExample3);
+    app.get('/kakaoicon',static.getkakao);
+    app.get('/navericon',static.getnaver);
 
-    app.get('/dodetailicon', user.detailPageIn);
-    app.get('/detailicon', user.detailPageOut);
+    app.get('/exampleImage',static.getExample);
+    app.get('/exampleImage2',static.getExample2);
+    app.get('/exampleImage3',static.getExample3);
+
+    app.get('/dodetailicon', static.detailPageIn);
+    app.get('/detailicon', static.detailPageOut);
+
+    app.get('/harryPoster',static.getHarry);
+    app.get('/marblePoster',static.getmarble);
+
+    app.get('/iu',static.getIu);
+    app.get('/timothee',static.getTimo);
+    app.get('/lee',static.getLee);
+    app.get('/goeun',static.getgoEun);
+    app.get('/yohanson',static.getYohanson);
+    app.get('/tomcruse',static.getTom);
+    app.get('/willSmith',static.getSmith);
 };

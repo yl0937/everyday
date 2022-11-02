@@ -23,10 +23,6 @@ module.exports = function(app){
 
     app.post('/interests');
 
-    app.get('/exampleImage',user.getExample);
-    app.get('/exampleImage2',user.getExample2);
-    app.get('/exampleImage3',user.getExample3);
-
 
     //JWT 검증 API
     app.get('/auto', jwtMiddleware, user.check);
