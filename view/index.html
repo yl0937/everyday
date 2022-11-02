@@ -57,17 +57,30 @@
         function check()
         {
             let token = getCookie('jwt');
-            if (token ==""){
+            if (token.length==0){
                 $("#logout_icon").hide();
                 $("#loginName").hide();
+                modalOff()
+                osturl = ""
             }else{
+                var ajax = $.ajax({
+                    url: "/ost",
+                    type: 'POST',
+                    data: ({"userId" : token}),
+                    success: function(result) {
+                        if(result.code == 1000) {
+                            $("#url").text(result.result["name"] + " OST 보러가기")
+                            $("#ostImg").attr("src",result.result["img"])
+                            document.getElementById("ostImg").href = result.result["url"]
+                        }
+                    }
+                });
                 $("#login_icon").hide();
                 $("#loginName").text(token);
                 $("#loginName").show();
-                modalOn();
             }
-
         }
+
         function setCookie(){
             let search = $("#searchInput").val()
             if (search=="")
@@ -97,7 +110,9 @@
             }
             return "";
         }
-
+        function ostImgClick(){
+            window.open(document.getElementById("ostImg").href)
+        }
         function color_change_event2() {
             document.querySelector('#searchInput').classList.add("searchInput_change");
             // alert("fjsdif");
@@ -811,7 +826,8 @@
         </div>
         <div class="close-area" style="font-size: 23px">X</div>
         <div class="content">
-            <p style="font-family: 'Noto Sans KR'">가나다라마바사 아자차카타파하</p>
+            <p id="url" href="" style="font-family: 'Noto Sans KR'"></p>
+            <img id="ostImg" src="" href="" onclick="ostImgClick()">
         </div>
     </div>
 </div>
