@@ -64,4 +64,7 @@ module.exports = function(app){
     app.get('/interest12',static.getInterest12);
     app.get('/interest13',static.getInterest13);
     app.get('/interest14',static.getInterest14);
+
+    // 09. 계정 연동 페이지
+    app.get('/connectPage',static.connectPage)
 };

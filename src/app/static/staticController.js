@@ -187,3 +187,7 @@ exports.getInterest13 = async function (req, res) {
 exports.getInterest14 = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/img/interest14.png'));
 }
+
+exports.connectPage = async function (req, res) {
+    return res.sendFile(path.join(__dirname, '../../../view/html/account_connect.html'));
+}
