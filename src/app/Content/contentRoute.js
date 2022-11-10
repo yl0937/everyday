@@ -1,3 +1,5 @@
+const jwtMiddleware = require("../../../config/jwtMiddleware");
+const content = require("./contentController");
 module.exports = function(app){
     const content = require('./contentController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
@@ -17,8 +19,15 @@ module.exports = function(app){
     //필터링 컨텐츠 리스트
     app.post('/content-name',content.getContentName)
 
-    app.post('/interests',jwtMiddleware,content.postInterest);
+    //관심사 추가
+    app.post('/interests',content.postInterest);
 
+    //OST 추천
+    app.post('/ost',content.postOst);
+
+    app.post('/liked-list',content.postLikedList);
+
+    app.post('/recommend',content.postRecommend);
 };
 
 

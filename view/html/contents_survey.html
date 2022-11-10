@@ -1,0 +1,628 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<script type="text/javascript">
+    let jwt = ""
+    var element = document.getElementsByClassName('genre_btn');
+    var interest = []
+    function color_change(el){
+
+        alert(el.value);
+        el.classList.toggle("genre_btn_active");
+    }
+
+    function getCookie(name) {
+        var nameOfCookie = name+"=";
+        var x = 0;
+        while (x <= document.cookie.length) {
+            var y = (x + nameOfCookie.length);
+            if (document.cookie.substring(x, y) == nameOfCookie) {
+                if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+                    endOfCookie = document.cookie.length;
+                return unescape(document.cookie.substring(y, endOfCookie));
+            }
+            x = document.cookie.indexOf(" ", x) + 1;
+            if (x == 0)
+                break;
+        }
+        return "";
+    }
+
+    function init() {
+        for (var i = 0; i < element.length; i++) {
+            element[i].addEventListener("click", color_change);
+        }
+    }
+    function submit()
+    {
+        var cookie = getCookie('jwt')
+        if (cookie != "") {
+            jwt = cookie
+        }
+        var ajax = $.ajax({
+            url: "/interests",
+            type: 'POST',
+            data: ({"userId" : cookie,"conlist" : interest}),
+            success: function (response) {
+            }
+        });
+        location.replace('/')
+    }
+    function getValue(value)
+    {
+        if(value=="1")
+        {
+            document.getElementById('1').setAttribute("style","display  : none")
+            document.getElementById('2').setAttribute("style","display  : block")
+            interest.push("액션");
+        }
+        if(value=="2")
+        {
+            document.getElementById('2').setAttribute("style","display  : none")
+            document.getElementById('1').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "액션");
+        }
+        if(value=="3")
+        {
+            document.getElementById('3').setAttribute("style","display  : none")
+            document.getElementById('4').setAttribute("style","display  : block")
+            interest.push("SF");
+        }
+        if(value=="4")
+        {
+            document.getElementById('4').setAttribute("style","display  : none")
+            document.getElementById('3').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "SF");
+        }
+        if(value=="5")
+        {
+            document.getElementById('5').setAttribute("style","display  : none")
+            document.getElementById('6').setAttribute("style","display  : block")
+            interest.push("판타지");
+        }
+        if(value=="6")
+        {
+            document.getElementById('6').setAttribute("style","display  : none")
+            document.getElementById('5').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== '판타지');
+        }
+        if(value=="7")
+        {
+            document.getElementById('7').setAttribute("style","display  : none")
+            document.getElementById('8').setAttribute("style","display  : block")
+            interest.push("공포");
+        }
+        if(value=="8")
+        {
+            document.getElementById('8').setAttribute("style","display  : none")
+            document.getElementById('7').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "공포");
+        }
+        if(value=="9")
+        {
+            document.getElementById('9').setAttribute("style","display  : none")
+            document.getElementById('10').setAttribute("style","display  : block")
+            interest.push("스릴러");
+        }
+        if(value=="10")
+        {
+            document.getElementById('10').setAttribute("style","display  : none")
+            document.getElementById('9').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "스릴러");
+        }
+        if(value=="11")
+        {
+            document.getElementById('11').setAttribute("style","display  : none")
+            document.getElementById('12').setAttribute("style","display  : block")
+            interest.push("애니메이션");
+        }
+        if(value=="12")
+        {
+            document.getElementById('12').setAttribute("style","display  : none")
+            document.getElementById('11').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "애니메이션");
+        }
+        if(value=="13")
+        {
+            document.getElementById('13').setAttribute("style","display  : none")
+            document.getElementById('14').setAttribute("style","display  : block")
+            interest.push("코미디");
+        }
+        if(value=="14")
+        {
+            document.getElementById('14').setAttribute("style","display  : none")
+            document.getElementById('13').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "코미디");
+        }
+        if(value=="15")
+        {
+            document.getElementById('15').setAttribute("style","display  : none")
+            document.getElementById('16').setAttribute("style","display  : block")
+            interest.push("범죄");
+        }
+        if(value=="16")
+        {
+            document.getElementById('16').setAttribute("style","display  : none")
+            document.getElementById('15').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "범죄");
+        }
+        if(value=="17")
+        {
+            document.getElementById('17').setAttribute("style","display  : none")
+            document.getElementById('18').setAttribute("style","display  : block")
+            interest.push("다큐멘터리");
+        }
+        if(value=="18")
+        {
+            document.getElementById('18').setAttribute("style","display  : none")
+            document.getElementById('17').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "다큐멘터리");
+        }
+        if(value=="19")
+        {
+            document.getElementById('19').setAttribute("style","display  : none")
+            document.getElementById('20').setAttribute("style","display  : block")
+            interest.push("드라마");
+        }
+        if(value=="20")
+        {
+            document.getElementById('20').setAttribute("style","display  : none")
+            document.getElementById('19').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== '드라마');
+        }
+        if(value=="21")
+        {
+            document.getElementById('21').setAttribute("style","display  : none")
+            document.getElementById('22').setAttribute("style","display  : block")
+            interest.push("로맨스");
+        }
+        if(value=="22")
+        {
+            document.getElementById('22').setAttribute("style","display  : none")
+            document.getElementById('21').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "로맨스");
+        }
+        if(value=="23")
+        {
+            document.getElementById('23').setAttribute("style","display  : none")
+            document.getElementById('24').setAttribute("style","display  : block")
+            interest.push("역사");
+        }
+        if(value=="24")
+        {
+            document.getElementById('24').setAttribute("style","display  : none")
+            document.getElementById('23').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "역사");
+        }
+        if(value=="25")
+        {
+            document.getElementById('25').setAttribute("style","display  : none")
+            document.getElementById('26').setAttribute("style","display  : block")
+            interest.push("음악");
+        }
+        if(value=="26")
+        {
+            document.getElementById('26').setAttribute("style","display  : none")
+            document.getElementById('25').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "음악");
+        }
+        if(value=="27")
+        {
+            document.getElementById('27').setAttribute("style","display  : none")
+            document.getElementById('28').setAttribute("style","display  : block")
+            interest.push("전쟁");
+        }
+        if(value=="28")
+        {
+            document.getElementById('28').setAttribute("style","display  : none")
+            document.getElementById('27').setAttribute("style","display  : block")
+            interest = interest.filter((element) => element !== "전쟁");
+        }
+    }
+
+    init();
+
+</script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+    *
+    {
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        /*width: 100%;*/
+        /*height: 100%;*/
+        list-style: none;
+        text-decoration: none;
+        border-collapse: collapse;
+    }
+    .header
+    {
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        position: absolute;
+        /*width: 1840px;*/
+        height: 35px;
+        line-height: 35px;
+        top:20px;
+        left: 40px;
+        right: 40px;
+        /*margin: 40px 40px 0px 40px;*/
+        /*background-color: red;*/
+        /*z-index:2;*/
+
+    }
+    .nav-left
+    {
+        display:flex;
+        position: relative;
+    }
+    .Menu {
+        width: 50px;
+        height: 26px;
+        margin-left: 6px;
+        font-family: 'Roboto Light';
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.3;
+        letter-spacing: normal;
+        text-align: left;
+        color: #fff;
+        cursor: pointer;
+    }
+    .menu_icon
+    {
+        width: 33px;
+        height: 20px;
+        cursor: pointer;
+        /* border: solid 4px #fff; */
+    }
+    .EveryDay
+    {
+        /*position: absolute;*/
+        /*top: 40px;*/
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        position: absolute;
+        top: 40px;
+    }
+    .EveryDay a{
+
+        /* cursor: pointer; */
+        /*width: 264px;*/
+        /*height: 79px;*/
+        /*margin-top:40px;*/
+        /*margin-left:828px;*/
+        /* margin: 40px 640px 828px 693px; */
+        font-family: 'Fugaz One', cursive;
+        /*font-family: 'Noto Sans KR', sans-serif;*/
+        font-size: 60px;
+        /*font-weight: bold;*/
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        /*z-index:1;*/
+    }
+    body
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url("/intro");
+        background-repeat: repeat-y;
+        background-size: cover;
+    }
+
+    body:before{
+        content: '';
+        background : linear-gradient(to-bottom, black, transparent);
+        position: absolute;
+        bottom: 0;
+        height:50%;
+        width:100%;
+    }
+
+    .signup-form
+    {
+        position: relative;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    .mainpage
+    {
+        cursor: pointer;
+        color: #fff;
+        text-align: right;
+    }
+    .int-area
+    {
+        width: 400px;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .survey-view
+    {
+        width: 1330px;
+
+        top: 100px;
+
+        position: absolute;
+        margin-top: 10px;
+        text-align: left;
+    }
+    .survey-content
+    {
+        text-align: center;
+
+        background-color: transparent;
+        border: none;
+
+        font-size: 15px; color:#fff;
+        outline: none;
+    }
+
+    .recent_con_img
+    {
+        width: 180px;
+        height: 230px;
+        margin-right: 10px;
+        margin-bottom: 100px;
+        margin-top: 10px;
+        /* margin-right: 19px; */
+        padding: 0px;
+        float: left;
+        color: #fff;
+    }
+
+    .int-area:first-child
+    {
+        margin-top:0;
+    }
+    .int-area input
+    {
+        width: 100%;
+        padding: 20px 10px 10px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #999;
+        font-size: 15px; color:#fff;
+        outline: none;
+    }
+
+    .int-area label
+    {
+        position: absolute; left: 10px; top: 15px;
+        font-size: 15px; color: #999;
+        transition: all .5s ease;
+    }
+
+    .question
+    {
+        font-size: 20px;
+        color: #999;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .int-area2
+    {
+        width: 100%;
+        position: relative;
+        margin-top: 10px;
+        padding: 20px 10px 10px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #999;
+        font-size: 15px; color:#fff;
+        outline: none;
+    }
+    .int-area2 #label_SEX
+    {
+        position: absolute; left: 10px; top: 15px;
+        font-size: 15px; color: #999;
+        transition: all .5s ease;
+    }
+
+    .int-area label.warning
+    {
+        color: red !important;
+        animation: warning .3s ease;
+        animation-iteration-count: 3;
+    }
+    .int-area input:focus+label,
+    .int-area input:valid+label {
+        top:0;
+        font-size: 13px;
+        color: #166cea;
+    }
+
+    .int-area2 input:focus+#label_SEX,
+    .int-area2 input:valid+#label_SEX {
+        top:0;
+        font-size: 13px;
+        color: #166cea;
+    }
+
+    .btn-area
+    {
+        margin-top: 30px;
+    }
+    .btn-area .btn-b
+    {
+        cursor: pointer;
+        width: 45%;
+        height: 50px;
+        background: #166cea;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        border:none;
+        border-radius: 25px;
+    }
+    .btn-area .btn-w
+    {
+        cursor: pointer;
+        width: 45%;
+        height: 50px;
+        background: #fff;
+        color: #166cea;
+        margin-right: 35px;
+        font-size: 15px;
+        font-weight: bold;
+        border:none;
+        border-radius: 25px;
+    }
+    .genre_btn
+    {
+        cursor: pointer;
+        width: 100px;
+        height: 50px;
+        margin: 5px;
+        margin-top: 10px;
+        color: #166cea;
+        background: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        border:none;
+        border-radius: 25px;
+    }
+
+    .genre_btn_active
+    {
+        background: #166cea;
+        color: #fff;
+    }
+
+    .genre_btn2
+    {
+        cursor: pointer;
+        width: 140px;
+        height: 50px;
+        margin: 5px;
+        margin-top: 10px;
+        color: #166cea;
+        background: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        border:none;
+        border-radius: 25px;
+    }
+</style>
+
+<body>
+
+<div class="EveryDay"><a href="/">Every Day</a></div>
+<nav class="header">
+    <ul class="nav-left">
+        <li><a href=""><img class="menu_icon" src="/menuicon"></a></li>
+        <li><a href=""><span class="Menu">Menu</span></a></li>
+
+        <!-- <button onclick="location.href='/loginPage'">로그인</button> -->
+    </ul>
+</nav>
+<section class="survey-view">
+
+    <div class="survey-content"  style="margin-top: 150px;">
+        <label class="question">계정이 있는 플랫폼은 무엇인가요?</label><br>
+        <input type="button" style="margin-bottom: 100px;" class="genre_btn" onclick="color_change(this)" value="WATCHA"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="NETFLIX"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="WAVVE"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="Disney Plus"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="TVING"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="Seezn"/>
+    </div>
+
+    <!-- <hr style="border:0; height: 1px; background:#999; margin-bottom: 100px"> -->
+
+    <div class="survey-content">
+        <label class="question">좋아하는 장르는 무엇인가요?</label><br>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="액션"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="코미디"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="다큐멘터리"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="판타지"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="공포"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="음악"/><br>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="로맨스"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="스포츠"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="서부"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="유럽"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="애니메이션"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="범죄"/><br>
+        <input type="button" style="margin-bottom: 100px;" class="genre_btn" onclick="color_change(this)" value="드라마"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="역사"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="가족"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="스릴러"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="SF"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="전쟁"/>
+        <input type="button" class="genre_btn" onclick="color_change(this)" value="Reality TV"/>
+    </div>
+
+    <div class="survey-content">
+        <label class="question">최근에 재밌게 봤던 콘텐츠는 무엇인가요?</label><br>
+        <img id="15" class="recent_con_img" onclick="getValue('15')" src="https://images.justwatch.com/poster/242528158/s592/mobeomtaegsi" style="display  : block">
+        <img id="16" class="recent_con_img" onclick="getValue('16')" src="/interest8" style="display  : none">
+        <img id="17" class="recent_con_img" onclick="getValue('17')" src="https://images.justwatch.com/poster/301434262/s592/earthstorm">
+        <img id="18" class="recent_con_img" onclick="getValue('18')" src="/interest9" style="display  : none">
+        <img id="19" class="recent_con_img" onclick="getValue('19')" src="https://images.justwatch.com/poster/297943593/s592/jageun-assideul-2022">
+        <img id="20" class="recent_con_img" onclick="getValue('20')" src="/interest10" style="display  : none">
+        <img id="21" class="recent_con_img" onclick="getValue('21')" src="https://images.justwatch.com/poster/298280095/s592/decision-to-leave">
+        <img id="22" class="recent_con_img" onclick="getValue('22')" src="/interest11" style="display  : none">
+        <img id="23" class="recent_con_img" onclick="getValue('23')" src="https://images.justwatch.com/poster/301235989/s592/syurub">
+        <img id="24" class="recent_con_img" onclick="getValue('24')" src="/interest12" style="display  : none">
+        <img id="25" class="recent_con_img" onclick="getValue('25')" src="https://images.justwatch.com/poster/289372453/s592/elbiseu">
+        <img id="26" class="recent_con_img" onclick="getValue('26')" src="/interest13" style="display  : none">
+        <img id="27" class="recent_con_img" onclick="getValue('27')" src="https://images.justwatch.com/poster/278990257/s592/peosipig">
+        <img id="28" class="recent_con_img" onclick="getValue('28')" src="/interest14" style="display  : none">
+    </div>
+
+
+    <div class="survey-content">
+        <label class="question">가장 좋아하는 콘텐츠는 무엇인가요?</label><br>
+        <img id="1" class="recent_con_img" onclick="getValue('1')" src="https://images.justwatch.com/poster/292757027/s592/the-roundup" style="display  : block">
+        <img id="2" class="recent_con_img" onclick="getValue('2')" src="/interest1" style="display  : none">
+        <img id="3" class="recent_con_img" onclick="getValue('3')" src="https://images.justwatch.com/poster/176267183/s592/avatar">
+        <img id="4" class="recent_con_img" onclick="getValue('4')" src="/interest2" style="display  : none">
+        <img id="5" class="recent_con_img" onclick="getValue('5')" src="https://images.justwatch.com/poster/251148303/s592/harry-potter-and-the-philosophers-stone">
+        <img id="6" class="recent_con_img" onclick="getValue('6')" src="/interest3" style="display  : none">
+        <img id="7" class="recent_con_img" onclick="getValue('7')" src="https://images.justwatch.com/poster/289375150/s592/nope">
+        <img id="8" class="recent_con_img" onclick="getValue('8')" src="/interest4" style="display  : none">
+        <img id="9" class="recent_con_img" onclick="getValue('9')" src="https://images.justwatch.com/poster/300653244/s592/surinam">
+        <img id="10" class="recent_con_img" onclick="getValue('10')" src="/interest5" style="display  : none">
+        <img id="11" class="recent_con_img" onclick="getValue('11')" src="https://images.justwatch.com/poster/300542581/s592/weonpiseu">
+        <img id="12" class="recent_con_img" onclick="getValue('12')" src="/interest6" style="display  : none">
+        <img id="13" class="recent_con_img" onclick="getValue('13')" src="https://images.justwatch.com/poster/300559662/s592/jeongjighan-hubo-2">
+        <img id="14" class="recent_con_img" onclick="getValue('14')" src="/interest7" style="display  : none">
+    </div>
+
+    <div class="survey-content">
+        <label class="question">관심있는 연예인은 누구인가요?</label><br>
+        <img class="recent_con_img" src="/iu">
+        <img class="recent_con_img" src="/timothee">
+        <img class="recent_con_img" src="/lee">
+        <img class="recent_con_img" src="/goeun">
+        <img class="recent_con_img" src="/yohanson">
+        <img class="recent_con_img" src="/tomcruse">
+        <img class="recent_con_img" src="/willSmith">
+    </div>
+    <div>
+        <input type="button" class="genre_btn" onclick="submit()" value="제출"/>
+    </div>
+
+
+
+
+</section>
+
+</body>

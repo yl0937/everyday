@@ -1,0 +1,489 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function signUp(){
+        var userId = $("#userid").val()
+        var password = $("#password").val()
+        var userName = $("#userName").val()
+        var userAge = $("#userAge").val()
+        var userOTT = document.getElementsByTagName('input');
+        var value;
+        for (var i = 0; i < userOTT.length; i++) {
+            if (userOTT[i].type === 'radio' && userOTT[i].checked) {
+                // get value, set checked flag or do whatever you need to
+                value = userOTT[i].value;
+            }
+        }
+        var userNum = $("#userNum").val()
+        var userEmail = $("#userEmail").val()
+        var ajax = $.ajax({
+            url: "/users",
+            data: (
+                {"userId" : userId , "password" : password , "userName" : userName,
+                    "userAge" : userAge , "userOTT" : value, "userNum" : userNum,
+                    "userEmail" : userEmail}
+            ),
+            type: 'POST',
+            dataType : 'JSON',
+            success: function(response) {
+                // alert("완료");
+                // location.replace('/');
+                if(response.isSuccess == true) {
+                    // location.replace('/surveyPage'); //contents_survey 페이지로 이동하기
+                    signIn(userId,password)
+                }
+                else {
+                    // alert("실패");
+                    // location.replace('/');
+                }
+            }
+        });
+        alert("회원가입완료");
+    }
+    function main(){
+        location.replace('/');
+    }
+    function getGender(event) {
+        document.getElementById('result').innerText =
+            event.target.value;
+    }
+    function signIn(userId,password)
+    {
+        var ajax = $.ajax({
+            url: "/login",
+            data: (
+                {"userId" : userId , "password" : password}
+            ),
+            type: 'POST',
+            dataType : 'JSON',
+            success: function(response) {
+                if(response.isSuccess == true) {
+                    location.replace('/surveyPage');
+
+                }
+                else {
+                    alert("실패");
+                    // location.replace('/');
+                }
+            }
+        });
+
+    }
+</script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+    *
+    {
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+        border-collapse: collapse;
+    }
+    .header
+    {
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        position: absolute;
+
+        height: 35px;
+        line-height: 35px;
+        top:20px;
+        left: 40px;
+        right: 40px;
+        /*margin: 40px 40px 0px 40px;*/
+        /*background-color: red;*/
+        /*z-index:2;*/
+
+    }
+    .nav-left
+    {
+        display:flex;
+        position: relative;
+    }
+    .Menu {
+        width: 50px;
+        height: 26px;
+        margin-left: 6px;
+        font-family: 'Roboto Light';
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.3;
+        letter-spacing: normal;
+        text-align: left;
+        color: #fff;
+        cursor: pointer;
+    }
+    .menu_icon
+    {
+        width: 33px;
+        height: 20px;
+        cursor: pointer;
+        /* border: solid 4px #fff; */
+    }
+    .EveryDay
+    {
+        /*position: absolute;*/
+        /*top: 40px;*/
+        display: flex;
+        justify-content: space-between;
+        /* align-items: center; */
+        position: absolute;
+        top: 40px;
+    }
+    .EveryDay a{
+
+        font-family: 'Fugaz One', cursive;
+        /*font-family: 'Noto Sans KR', sans-serif;*/
+        font-size: 60px;
+        /*font-weight: bold;*/
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        /*z-index:1;*/
+    }
+    body
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url("/intro");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .signup-form
+    {
+        position: relative;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    .mainpage
+    {
+        cursor: pointer;
+        color: #fff;
+        text-align: right;
+    }
+    .int-area
+    {
+        width: 100%;
+        position: relative;
+        margin-top: 10px;
+        border-bottom: 1px solid #999;
+    }
+
+    .int-area:first-child
+    {
+        margin-top:0;
+    }
+    .int-area input
+    {
+        width: 100%;
+        padding: 20px 10px 10px;
+        background-color: transparent;
+        border: none;
+
+        font-size: 15px; color:#fff;
+        outline: none;
+    }
+
+    .int-area label
+    {
+        position: absolute; left: 10px; top: 15px;
+        font-size: 15px; color: #999;
+        transition: all .5s ease;
+    }
+
+    .int-area2
+    {
+        width: 100%;
+        position: relative;
+        margin-top: 10px;
+        padding: 20px 10px 10px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #999;
+        font-size: 15px; color:#fff;
+        outline: none;
+    }
+    .int-area2 #label_OTT
+    {
+        position: absolute; left: 10px; top: 15px;
+        font-size: 15px; color: #999;
+        transition: all .5s ease;
+    }
+
+    .int-area label.warning
+    {
+        color: red !important;
+        animation: warning .3s ease;
+        animation-iteration-count: 3;
+    }
+    .int-area input:focus+label,
+    .int-area input:valid+label {
+        top:0;
+        font-size: 13px;
+        color: #166cea;
+    }
+
+    .int-area2 input:focus+#label_OTT,
+    .int-area2 input:valid+#label_OTT {
+        top:0;
+        font-size: 13px;
+        color: #166cea;
+    }
+
+    .btn-area{margin-top: 30px;}
+    .btn
+    {
+        cursor: pointer;
+        width: 100%;
+
+        height: 60px;
+        background: transparent;
+        border: 2px solid #166cea;
+        color: #166cea;
+        font-size: 17px;
+        font-weight: bold;
+        border-radius: 30px;
+        position: relative;
+        transition:all 1s;
+        overflow: hidden;
+    }
+
+    .btn::before{
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: #166cea;
+        top:100%;
+        left:0;
+        transition: all 0.4s;
+        z-index: -1;
+    }
+
+    .btn:hover::before{
+        transform: translateY(-100%);
+    }
+
+    .btn:hover{
+        color:#fff;
+    }
+
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    section.notice {
+        padding: 80px 0;
+    }
+
+    .page-title {
+        margin-bottom: 60px;
+    }
+    .page-title h3 {
+        font-size: 28px;
+        color: #333333;
+        font-weight: 400;
+        text-align: center;
+    }
+
+
+    .{
+        font-size: 13px;
+        width: 100%;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .board-table a {
+        color: #333;
+        display: inline-block;
+        line-height: 1.4;
+        word-break: break-all;
+        vertical-align: middle;
+    }
+    .board-table a:hover {
+        text-decoration: underline;
+    }
+    .board-table th {
+        text-align: center;
+        color: #fff;
+    }
+    .board-table td {
+        color: #fff;
+    }
+    .board-table a{
+        color: #fff;
+    }
+
+    .board-table .th-ott {
+        width: 200px;
+        text-align: center;
+    }
+
+
+    .board-table .th-date {
+        width: 200px;
+    }
+
+    .board-table .th-remove {
+        width: 200px;
+    }
+
+    .board-table th, .board-table td {
+        padding: 14px 0;
+    }
+
+    .board-table tbody td {
+        border-top: 1px solid #e7e7e7;
+        text-align: center;
+
+    }
+
+    .board-table tbody th {
+        padding-left: 28px;
+        padding-right: 14px;
+        border-top: 1px solid #e7e7e7;
+        text-align: left;
+    }
+
+    .board-table tbody th p{
+        display: none;
+    }
+
+
+
+
+    /* reset */
+
+    * {
+        list-style: none;
+        text-decoration: none;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .clearfix:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .container {
+        margin: 0 auto;
+
+    }
+    .blind {
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        margin: -1px;
+        width: 1px;
+        height: 1px;
+    }
+
+</style>
+
+<body>
+<div class="EveryDay"><a href="/">Every Day</a></div>
+<nav class="header">
+    <ul class="nav-left">
+        <li><a href=""><img class="menu_icon" src="/menuicon"></a></li>
+        <li><a href=""><span class="Menu">Menu</span></a></li>
+    </ul>
+</nav>
+<section class="signup-form">
+    <form action="">
+        <div class="mainpage" onclick="location.replace('/');">메인페이지</div>
+
+        <div class="int-area2">
+
+            <label id="click_watcha_label" for="click_watcha">WATCHA</label>
+            <input type="radio" id="click_watcha" name="userOTT" value="WATCHA"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_netflix_label" for="click_netflix">NETFLIX</label>
+            <input type="radio" id="click_netflix" name="userOTT" value="NETFLIX"
+                   autocomplete="off" style="margin-right:44px" required checked>
+
+            <label id="click_wavve_label" for="click_wavve">WAVVE</label>
+            <input type="radio" id="click_wavve" name="userOTT" value="WAVVE"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_Disney_label" for="click_Disney">Disney Plus</label>
+            <input type="radio" id="click_Disney" name="userOTT" value="Disney Plus"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_tving_label" for="click_tving">TVING</label>
+            <input type="radio" id="click_tving" name="userOTT" value="TVING"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_tving_label" for="click_tving">TVING</label>
+            <input type="radio" id="click_tving" name="userOTT" value="TVING"
+                   autocomplete="off" required>
+
+            <label id="label_OTT">OTT</label></br>
+
+        </div>
+
+        <div class="int-area">
+            <input type="text" id="userid" name="userid" autocomplete="off" required>
+            <label for="userid">ID</label></br>
+        </div>
+
+        <div class="btn-area">
+            <button class="btn" type="submit" id="btn">추가하기</button>
+        </div>
+    </form>
+
+    <div id="board-list">
+        <div class="container" style="position: relative; top: 100px;">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-ott">연동할 OTT 플랫폼</th>
+                    <th scope="col" class="th-id">ID</th>
+                    <th scope="col" class="th-date">등록일시</th>
+                    <th scope="col" class="th-remove"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>넷플릭스</td>
+                    <th>
+                        <a href="#!">아이디1</a>
+                        <p>테스트</p>
+                    </th>
+                    <td>2017.07.13</td>
+                    <td><button class="btn" style="width:100px; height: 40px;" type="submit" id="btn">삭제하기</button></td>
+                </tr>
+
+                <tr>
+                    <td>왓챠</td>
+                    <th><a href="#!">아이디2</a></th>
+                    <td>2017.06.15</td>
+                    <td><button class="btn" style="width:100px; height: 40px;" type="submit" id="btn">삭제하기</button></td>
+                </tr>
+
+                <tr>
+                    <td>티빙</td>
+                    <th><a href="#!">아이디3</a></th>
+                    <td>2017.06.15</td>
+                    <td><button class="btn" style="width:100px; height: 40px;" type="submit" id="btn">삭제하기</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+</body>

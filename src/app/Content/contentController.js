@@ -30,11 +30,14 @@ exports.getContent = async function (req, res) {
 
 // /** API No. 2 [POST]유저 관심사 추가API **/
 exports.postInterest = async function (req, res) {
-    const userIdResult = req.verifiedToken.userId;
-    const tagId = req.body.tagId;
+    const userIdResult = req.body.userId;
     const userIdres = await userProvider.retrieveUserId(userIdResult);
     const userId = userIdres['id']
-    const postInterestResult = await contentService.userInterest(tagId,userId);
+    const list = req.body.conlist;
+    for(var i=0;i<list.length;i++)
+    {
+        const result = await contentService.userInterest(list[i],userId);
+    }
     return res.send(response(baseResponse.SUCCESS));
 };
 
@@ -46,4 +49,58 @@ exports.getContentName = async function (req, res) {
     return res.send(response(baseResponse.SUCCESS,getContentRes))
 };
 
+// /** API No. 2 [GET]컨텐츠 리스트 API **/
+exports.postOst = async function (req, res) {
+    const userId = req.body.userId;
+    const content = await contentProvider.retrieveUserContentId(userId);
+    if(content==0)
+    {
+        const len = 0;
+        const result = {len};
+        return res.send(response(baseResponse.SUCCESS,result));
+    }
+    else
+    {
+        const ostResult = await contentProvider.retrieveOst(content);
+        const img = ostResult.img;
+        const url = ostResult.url;
+        const name = ostResult.name;
+        const len = 1;
+        const result = {len,img, url,name};
+        return res.send(response(baseResponse.SUCCESS,result));
+    }
+
+};
+
+exports.postLikedList = async function (req, res) {
+    const userIdResult = req.body.userId;
+    const userIdres = await userProvider.retrieveUserId(userIdResult);
+    const userId = userIdres['id']
+    const contents = await contentProvider.retrieveLikeContentId(userId);
+    contentList = []
+    for(var i=0;i<contents.length;i++)
+    {
+        contentList.push(String(contents[i].contentId))
+    }
+    const content = await contentProvider.retrieveContentName(contentList);
+    getContentRes = []
+    for(var i=0;i<content.length;i++)
+    {
+        const tmp = await contentProvider.retrieveContentByName(content[i]);
+        const cName = tmp[0].name;
+        const csSrc = tmp[0].src;
+        const tmp2 = {cName,csSrc};
+        getContentRes.push(tmp2);
+    }
+    return res.send(response(baseResponse.SUCCESS,getContentRes))
+};
+
+// /** API No. 2 [GET]컨텐츠 리스트 API **/
+exports.postRecommend = async function (req, res) {
+    const userIdResult = req.body.userId;
+    const userIdres = await userProvider.retrieveUserId(userIdResult);
+    const userId = userIdres['id']
+    const result = await contentProvider.retrieveRContent(userId);
+    return res.send(response(baseResponse.SUCCESS,result))
+};
 
