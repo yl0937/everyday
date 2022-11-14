@@ -1,4 +1,4 @@
-const static = require("../Static/staticController");
+const static = require("../static/staticController");
 module.exports = function(app){
 
     //html
