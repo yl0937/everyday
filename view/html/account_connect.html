@@ -1,10 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     function signUp(){
-        var userId = $("#userid").val()
-        var password = $("#password").val()
-        var userName = $("#userName").val()
-        var userAge = $("#userAge").val()
+        var userId = $("#other_platform_userid").val()
         var userOTT = document.getElementsByTagName('input');
         var value;
         for (var i = 0; i < userOTT.length; i++) {
@@ -13,8 +10,6 @@
                 value = userOTT[i].value;
             }
         }
-        var userNum = $("#userNum").val()
-        var userEmail = $("#userEmail").val()
         var ajax = $.ajax({
             url: "/users",
             data: (
@@ -42,10 +37,6 @@
     function main(){
         location.replace('/');
     }
-    function getGender(event) {
-        document.getElementById('result').innerText =
-            event.target.value;
-    }
     function signIn(userId,password)
     {
         var ajax = $.ajax({
@@ -66,8 +57,67 @@
                 }
             }
         });
+    }
+
+    function addToDo(){ //새로운 할 일 추가하는 경우
+
+        var other_platform = document.getElementsByTagName('input');
+        var value;
+        for (var i = 0; i < other_platform.length; i++) {
+            if (other_platform[i].type === 'radio' && other_platform[i].checked) {
+                // get value, set checked flag or do whatever you need to
+                value = other_platform[i].value;
+            }
+        }
+
+        alert(value);
+
+        var other_platform_userid = $("#other_platform_userid");
+        var tr = $("<tr></tr>");
+        var today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        let hours = today.getHours(); // 시
+        let minutes = today.getMinutes();  // 분
+
+        let now = year + '/' + month + '/' + date +' ' + hours + ':' + minutes;
+
+        $.each(other_platform_userid, function(i, item) {
+            var body = document.getElementById('listBody');
+
+            var platform = $("<td></td>").html(value);
+            var td = $("<td></td>").html($(item).val());
+            var day = $("<td></td>").html(now);
+            var bt = $("<button class=\"btn\" style=\"width:100px; height: 40px;\" type=\"submit\" onclick='deleteTodo()'>삭제하기</button>");
+
+            $(tr).append(platform);
+            $(tr).append(td);
+            $(tr).append(day);
+            $(tr).append(bt);
+
+        });
+        $("tbody").append(tr);
+        $(other_platform_userid).val("");
 
     }
+
+    function deleteTodo(e) {
+        var body = document.getElementById('listBody');
+        alert("delete");
+
+        var deleteElement = event.target.parentElement;
+        deleteElement.remove();
+    }
+
+    // function addTask(value) {
+    //     let ul = document.querySelector('ul');
+    //     let li = document.createElement('li');
+    //     li.innerHTML = `<button class="btn" style="width:100px; height: 40px;" type="submit">삭제하기</button><label>${value}</label>`;
+    //     ul.appendChild(li);
+    //     document.querySelector('.todolist').style.display = 'block';
+    // }
+
 </script>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
@@ -426,8 +476,8 @@
             <input type="radio" id="click_tving" name="userOTT" value="TVING"
                    autocomplete="off" style="margin-right:44px" required>
 
-            <label id="click_tving_label" for="click_tving">TVING</label>
-            <input type="radio" id="click_tving" name="userOTT" value="TVING"
+            <label id="click_Seezn_label" for="click_tving">Seezn</label>
+            <input type="radio" id="click_Seezn" name="userOTT" value="Seezn"
                    autocomplete="off" required>
 
             <label id="label_OTT">OTT</label></br>
@@ -435,12 +485,12 @@
         </div>
 
         <div class="int-area">
-            <input type="text" id="userid" name="userid" autocomplete="off" required>
-            <label for="userid">ID</label></br>
+            <input type="text" id="other_platform_userid" name="userid" autocomplete="off" required>
+            <label for="other_platform_userid">ID</label></br>
         </div>
 
         <div class="btn-area">
-            <button class="btn" type="submit" id="btn">추가하기</button>
+            <button class="btn" type="submit" id="btn" onclick="addToDo()">추가하기</button>
         </div>
     </form>
 
@@ -448,42 +498,19 @@
         <div class="container" style="position: relative; top: 100px;">
             <table class="board-table">
                 <thead>
-                <tr>
-                    <th scope="col" class="th-ott">연동할 OTT 플랫폼</th>
-                    <th scope="col" class="th-id">ID</th>
-                    <th scope="col" class="th-date">등록일시</th>
-                    <th scope="col" class="th-remove"></th>
-                </tr>
+                    <tr>
+                        <td scope="col" class="th-ott">연동할 OTT 플랫폼</td>
+                        <td scope="col" class="th-id">ID</td>
+                        <td scope="col" class="th-date">등록일시</td>
+                        <td scope="col" class="th-remove"></td>
+                    </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>넷플릭스</td>
-                    <th>
-                        <a href="#!">아이디1</a>
-                        <p>테스트</p>
-                    </th>
-                    <td>2017.07.13</td>
-                    <td><button class="btn" style="width:100px; height: 40px;" type="submit" id="btn">삭제하기</button></td>
-                </tr>
 
-                <tr>
-                    <td>왓챠</td>
-                    <th><a href="#!">아이디2</a></th>
-                    <td>2017.06.15</td>
-                    <td><button class="btn" style="width:100px; height: 40px;" type="submit" id="btn">삭제하기</button></td>
-                </tr>
-
-                <tr>
-                    <td>티빙</td>
-                    <th><a href="#!">아이디3</a></th>
-                    <td>2017.06.15</td>
-                    <td><button class="btn" style="width:100px; height: 40px;" type="submit" id="btn">삭제하기</button></td>
-                </tr>
+                <tbody class="listBody">
                 </tbody>
             </table>
         </div>
     </div>
 </section>
-
 
 </body>
