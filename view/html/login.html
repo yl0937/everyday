@@ -9,12 +9,15 @@
     function login() {
         let user = $("#userid").val();
         let password = $("#password").val();
+
+        
         var ajax = $.ajax({
             url: "/login",
             data: ({"userId": user, "password": password}),
             type: 'POST',
             success: function (result) {
                 if (result.code == 1000) {
+                    
                     // alert(user);
                     // $.getScript("index.html", function(){login_success();});
                     location.replace('/');
