@@ -110,6 +110,13 @@
         deleteElement.remove();
     }
 
+    function enterkey(e)
+    {
+        if (e.keyCode == 13) {
+            signUp();
+        };
+    }
+
 </script>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
@@ -142,7 +149,7 @@
         width: 50px;
         height: 26px;
         margin-left: 6px;
-        font-family: 'Roboto Light';
+        font-family: 'Noto Sans KR', sans-serif;
         font-size: 20px;
         font-weight: normal;
         font-stretch: normal;
@@ -309,12 +316,7 @@
         font-weight: 400;
         text-align: center;
     }
-    .{
-        font-size: 13px;
-        width: 100%;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-    }
+
     .board-table a {
         color: #333;
         display: inline-block;
@@ -384,14 +386,6 @@
         margin: 0 auto;
 
     }
-    .blind {
-        position: absolute;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        margin: -1px;
-        width: 1px;
-        height: 1px;
-    }
 
 </style>
 
@@ -399,8 +393,8 @@
 <div class="EveryDay"><a href="/">Every Day</a></div>
 <nav class="header">
     <ul class="nav-left">
-        <li><a href=""><img class="menu_icon" src="/menuicon"></a></li>
-        <li><a href=""><span class="Menu">Menu</span></a></li>
+        <li><a href="/connectPage"><img class="menu_icon" src="././view/img/connection.png"></a></li>
+        <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
     </ul>
 </nav>
 <section class="signup-form">
@@ -438,7 +432,7 @@
         </div>
 
         <div class="int-area">
-            <input type="text" id="other_platform_userid" name="userid" autocomplete="off" required>
+            <input type="text" id="other_platform_userid" name="userid" onkeyup="enterkey(e)" autocomplete="off" required>
             <label for="other_platform_userid">ID</label></br>
         </div>
 
