@@ -28,6 +28,10 @@ module.exports = function(app){
     app.post('/liked-list',content.postLikedList);
 
     app.post('/recommend',content.postRecommend);
+
+    app.post('/ostInfo',content.ostInfo);
+
+    app.post('/usesPlatform',content.getUserPlatform);
 };
 
 

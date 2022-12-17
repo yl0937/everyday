@@ -104,3 +104,30 @@ exports.postRecommend = async function (req, res) {
     return res.send(response(baseResponse.SUCCESS,result))
 };
 
+exports.ostInfo = async function (req, res) {
+    const userId = req.body.userId;
+    const platfrom = req.body.platform;
+    const platformEmail = req.body.email;
+
+    const userIdres = await userProvider.retrieveUserId(userId);
+    if(userIdres==undefined){
+        return res.send(response(baseResponse.DB_ERROR));
+    }else{
+        const id = userIdres.id;
+        const InsertQuery = [id,platfrom,platformEmail];
+        const InsertResult = await contentService.updatePlatform(InsertQuery);
+        return res.send(response(baseResponse.SUCCESS));
+    }
+}
+
+exports.getUserPlatform = async function (req, res) {
+    const userId = req.body.userId;
+    const userIdres = await userProvider.retrieveUserId(userId);
+    if(userIdres==undefined){
+        return res.send(response(baseResponse.DB_ERROR));
+    }else{
+        const id = userIdres.id;
+        const userPlatformResult = await contentProvider.retrieveUserPlatform(id);
+        return res.send(response(baseResponse.SUCCESS,userPlatformResult));
+    }
+}

@@ -33,6 +33,10 @@ exports.searchAll = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/html/searchAll.html'));
 }
 
+exports.connectPage = async function (req, res) {
+    return res.sendFile(path.join(__dirname, '../../../view/html/account_connect.html'));
+}
+
 // Img Source
 exports.getkakao = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/img/kakao_icon.png'));
@@ -90,7 +94,6 @@ exports.getSmith = async function (req, res) {
     return res.sendFile(path.join(__dirname, '../../../view/img/smith.png'));
 }
 
-// /** API No. 1-1 [GET] 메인 페이지 HTML API **/
 exports.getIcon = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/img/menu_icon.png'));
 }
@@ -188,6 +191,6 @@ exports.getInterest14 = async function (req, res) {
     return res.sendFile(path.join(__dirname,'../../../view/img/interest14.png'));
 }
 
-exports.connectPage = async function (req, res) {
-    return res.sendFile(path.join(__dirname, '../../../view/html/account_connect.html'));
+exports.conectionPng = async function (req, res) {
+    return res.sendFile(path.join(__dirname, '../../../view/img/connection.png'));
 }

@@ -1,6 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script type=text/javascript src="index.html"></script>
+<script type="text/javascript" src="index.html"></script>
 <script type="text/javascript">
     let resultList = []
     let list_len = 0
@@ -26,11 +26,11 @@
                         $("#content").append(
                             "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
                             "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
-                            "<li><a href=\"\"><div id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
+                            "<li><a href=\"\"><div onclick='urlChange()' id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
                             "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
                             "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>" +
-                            "<li><div id=\"content_interest\"><img id=\"do_like_icon\" src=\"/likeicon\" width=\"40\" height=\"40\" onclick=\"check_wish()\"></div></li>"+
-                            "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"detail_content()\"></label></div></a></li><ul/>"
+                             "<li><div id=\"content_interest\"><label><img id=\"do_like_icon\" src=\"/likeicon\" width=\"40\" height=\"40\" onclick=\"check_wish()\"></label></div></li>"+
+                            "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"check_wish()\"></label></div></a></li><ul/>"
                         );
                     }
                 }
@@ -40,24 +40,30 @@
             }
         });
     }
-
+    function urlChange(){
+        window.open("https://www.tving.com/contents/P001667962")
+    }
     count = 0
     function check_wish() {
         count = count+1
-
-        if(count % 2 == 1) {
-            document.getElementById("do_like_icon").src = "/dontlikeicon"
-        }
-        else if(count %2 == 0) {
-            document.getElementById("do_like_icon").src = "/likeicon"
-        }
+        document.getElementById("do_like_icon").src = "/dontlikeicon"
+        // if(value==1)
+        // {
+        //     document.getElementById("do_like_icon").src = "/dontlikeicon"
+        // }
+        // if(value==2)
+        // {
+        //     document.getElementById("do_like_icon").src = "/likeicon"
+        // }
     }
 
     function detail_content() {
         document.getElementById("do_detail_icon").src = "/detailicon"
+        detail_modal()
     }
 
     function detail_modal() {
+        alert("test")
         let name = getCookie('cookie');
         var ajax = $.ajax({
             url: "/content-name",
@@ -71,7 +77,6 @@
                     const platform = resultList[h]["platform"];
                     const actor = resultList[h]["actor"];
                     const explain = resultList[h]["explain"];
-                    alert(name);
                 }
                 else if(result.code == 4000) {
                     alert("검색 정보가 없습니다.");
@@ -170,13 +175,13 @@
         height: 26px;
         cursor: pointer;
     }
-    #do_like_icon{
+    /* #do_like_icon{
         position: absolute;
         right: 50px;
         width: 100%;
         height: 26px;
         cursor: pointer;
-    }
+    } */
     #logout_icon {
         position: absolute;
         width: 100%;
@@ -397,8 +402,8 @@
 
 <nav class="header">
     <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="././view/img/connection.png"></a></li>
-        <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
+        <li><a href="/connectPage"><img class="menu_icon" src="/menuIcon"></a></li>
+        <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
     </ul>
     <!--    <ul id="nav-right">-->
     <!--        <li><a href=""><span id="loginName"></span></a></li>-->

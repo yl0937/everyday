@@ -61,7 +61,7 @@ async function selectUserContentId(connection,userId) {
 // 컨텐츠-태그 조회
 async function selectOst(connection,contentId) {
     const selectContentTagQuery = `
-        SELECT img,url,name FROM contentost where contentId = ?;
+        SELECT img,url,name FROM Contentost where contentId = ?;
                  `;
     const [contentRow] = await connection.query(selectContentTagQuery,contentId);
     return contentRow;
@@ -79,7 +79,7 @@ async function selectLikeContentAll(connection,userId) {
 // 컨텐츠-태그 조회
 async function selectContentName(connection,contentId) {
     const selectContentTagQuery = `
-        select name from content where id = ?;
+        select name from Content where id = ?;
                  `;
     const [contentRow] = await connection.query(selectContentTagQuery,contentId);
     return contentRow[0].name;
@@ -88,12 +88,28 @@ async function selectContentName(connection,contentId) {
 // 컨텐츠-태그 조회
 async function selectRContent(connection,userId) {
     const selectContentTagQuery = `
-        select name,src from content where id in (
-            select contentId from contentgenre where contentgenre.genre in
-                                                     (select interestId from userinterest where userId=?)) limit 5;
+        select name,src from Content where id in (
+            select contentId from Contentgenre where Contentgenre.genre in
+                                                     (select interestId from UserInterest where userId=?)) limit 5;
                  `;
     const [contentRow] = await connection.query(selectContentTagQuery,userId);
     return contentRow;
+}
+
+async function insertUserPlatform(connection,query) {
+    const insertPlatformQuery = `
+        insert into Userpayinfo (userId, platform,email) values (?,?,?);
+                 `;
+    const [resultRow] = await connection.query(insertPlatformQuery,query);
+    return resultRow;
+}
+
+async function selectUserPlatform(connection,id) {
+    const insertPlatformQuery = `
+        select platform, email, date(createdAt) as createdAt from Userpayinfo where userId=?;
+                 `;
+    const resultRow = await connection.query(insertPlatformQuery,id);
+    return resultRow[0];
 }
 
 
@@ -107,5 +123,7 @@ module.exports = {
   selectOst,
   selectLikeContentAll,
   selectContentName,
-  selectRContent
+  selectRContent,
+  insertUserPlatform,
+  selectUserPlatform
 };

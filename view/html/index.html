@@ -43,7 +43,7 @@
                     type: 'POST',
                     data: ({"userId" : token}),
                     success: function(result) {
-                        if(result.result["len"] == 1) {
+                        if(result.result.len == 1) {
                             $("#url").text(result.result["name"] + " OST 보러가기")
                             $("#ostImg").attr("src",result.result["img"])
                             document.getElementById("ostImg").href = result.result["url"]
@@ -468,8 +468,8 @@
 
 <nav class="header">
     <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="././view/img/connection.png"></a></li>
-        <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
+        <li><a href="/connectPage"><img class="menu_icon" src="/menuicon"></a></li>
+        <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
     </ul>
     <ul id="nav-right">
         <li><a href=""><span id="loginName"></span></a></li>
@@ -565,6 +565,5 @@
 <script type="text/javascript">
     function userIdSet() {
         userId = sessionStorage.getItem("userId")
-        alert(userId)
     }
 </script>

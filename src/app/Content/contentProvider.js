@@ -87,3 +87,11 @@ exports.retrieveRContent = async function (userId) {
     return content;
 };
 
+exports.retrieveUserPlatform = async function (id) {
+
+    const connection = await pool.getConnection(async (conn) => conn);
+    const platform = await contentDao.selectUserPlatform(connection,id);
+    connection.release();
+    return platform;
+};
+

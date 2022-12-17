@@ -1,62 +1,58 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    function signUp(){
-        var userId = $("#other_platform_userid").val()
-        var userOTT = document.getElementsByTagName('input');
-        var value;
-        for (var i = 0; i < userOTT.length; i++) {
-            if (userOTT[i].type === 'radio' && userOTT[i].checked) {
-                // get value, set checked flag or do whatever you need to
-                value = userOTT[i].value;
-            }
+    function appenList(){
+        var userId = getCookie("jwt");
+        if(userId==""){
+            alert("로그인이 필요한 서비스 입니다.")
+            location.replace('/loginPage');
         }
-        var ajax = $.ajax({
-            url: "/users",
+        else{
+            var ajax = $.ajax({
+            url: "/usesPlatform",
             data: (
-                {"userId" : userId , "password" : password , "userName" : userName,
-                    "userAge" : userAge , "userOTT" : value, "userNum" : userNum,
-                    "userEmail" : userEmail}
-            ),
-            type: 'POST',
-            dataType : 'JSON',
-            success: function(response) {
-                // alert("완료");
-                // location.replace('/');
-                if(response.isSuccess == true) {
-                    // location.replace('/surveyPage'); //contents_survey 페이지로 이동하기
-                    signIn(userId,password)
-                }
-                else {
-                    // alert("실패");
-                    // location.replace('/');
-                }
-            }
-        });
-        alert("회원가입완료");
-    }
-    function main(){
-        location.replace('/');
-    }
-    function signIn(userId,password)
-    {
-        var ajax = $.ajax({
-            url: "/login",
-            data: (
-                {"userId" : userId , "password" : password}
+                {"userId" : userId}
             ),
             type: 'POST',
             dataType : 'JSON',
             success: function(response) {
                 if(response.isSuccess == true) {
-                    location.replace('/surveyPage');
+                    var appendList = response.result;
+                    for(var i=0;i<appendList.length;i++){
+                        var body = document.getElementsByClassName('listBody');
+                        var tr = $("<tr></tr>");
+                        $(tr).append(
+                            "<td value='a'class='tdplatform' value='"+appendList[i]["platform"]+"'>"+appendList[i]["platform"]+"</td>" + 
+                            "<td>" + appendList[i]["email"] + "</td>" + 
+                            "<td>" + appendList[i]["createdAt"].substr(0,10)+ "</td>" +
+                            "<td><button value='a' class=\"btn\" style=\"width:100px; height: 40px; margin-top: 5px;\" onclick='deleteTodo()' type=\"submit\">삭제하기</button></td>"
+                        );
+                        $(body).append(tr);
+                    };
 
                 }
                 else {
                     alert("실패");
-                    // location.replace('/');
                 }
             }
         });
+        }
+    }
+
+    function getCookie(name) {
+        var nameOfCookie = name+"=";
+        var x = 0;
+        while (x <= document.cookie.length) {
+            var y = (x + nameOfCookie.length);
+            if (document.cookie.substring(x, y) == nameOfCookie) {
+                if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+                    endOfCookie = document.cookie.length;
+                return unescape(document.cookie.substring(y, endOfCookie));
+            }
+            x = document.cookie.indexOf(" ", x) + 1;
+            if (x == 0)
+                break;
+        }
+        return "";
     }
 
     function addToDo(){ //새로운 할 일 추가하는 경우
@@ -70,44 +66,59 @@
             }
         }
 
-        alert(value);
-
         var other_platform_userid = $("#other_platform_userid");
-        var tr = $("<tr></tr>");
-        var today = new Date();
-        let year = today.getFullYear(); // 년도
-        let month = today.getMonth() + 1;  // 월
-        let date = today.getDate();  // 날짜
-        let hours = today.getHours(); // 시
-        let minutes = today.getMinutes();  // 분
+        var email = $(other_platform_userid).val()
 
-        let now = year + '/' + month + '/' + date +' ' + hours + ':' + minutes;
+         
+        var ajax = $.ajax({
+            url: "/ostInfo",
+            data: (
+                {"userId" : getCookie('jwt') , "platform" : value, "email" : email}
+            ),
+            type: 'POST',
+            dataType : 'JSON',
+            success: function(response) {
+                if(response.isSuccess == true) {
+                    alert("성공");
 
-        $.each(other_platform_userid, function(i, item) {
-            var body = document.getElementById('listBody');
-
-            var platform = $("<td></td>").html(value);
-            var td = $("<td></td>").html($(item).val());
-            var day = $("<td></td>").html(now);
-            var bt = $("<button class=\"btn\" style=\"width:100px; height: 40px; margin-top: 5px;\" type=\"submit\" onclick='deleteTodo()'>삭제하기</button>");
-
-            $(tr).append(platform);
-            $(tr).append(td);
-            $(tr).append(day);
-            $(tr).append(bt);
-
+                }
+                else {
+                    alert("실패");
+                    // location.replace('/');
+                }
+            }
         });
-        $("tbody").append(tr);
-        $(other_platform_userid).val("");
 
     }
 
     function deleteTodo(e) {
         var body = document.getElementById('listBody');
-        alert("delete");
+        // alert("delete");
 
-        var deleteElement = event.target.parentElement;
+        var deleteElement = event.target.parentElement.parentElement;
+        // var tr = event.target.parentElement.parentElement;
+        // alert(tr.children('td:eq(0)'))
         deleteElement.remove();
+        
+        // // var thisRow = $(this).closest('tr');
+        // // var platform = thisRow.find('td:eq(0)');
+
+        // var thisRow = $(this).parent().parent();
+        // var td = thisRow.children();
+        // var btn = td.find(".tdplatform").val;
+        // console.log(btn);
+        // console.log(td.find())
+        // console.log(td.eq(0))
+        // alert(td.eq(0).text())
+        // // // alert(JSON.stringify(platform));
+        // // alert(thisRow.text());
+        // // alert(e.value)
+        // // alert($(this).val())
+        // // var body = document.getElementById('listBody');
+        // // alert("delete");
+
+        // // var deleteElement = event.target.parentElement;
+        // // deleteElement.remove();
     }
 
     function enterkey(e)
@@ -118,6 +129,81 @@
     }
 
 </script>
+<body onload="appenList()">
+<div class="EveryDay"><a href="/">Every Day</a></div>
+<nav class="header">
+    <ul class="nav-left">
+        <li><a href="/connectPage"><img class="menu_icon" src="/menuicon"></a></li>
+        <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
+    </ul>
+</nav>
+<section class="signup-form">
+    <form action="">
+        <div class="mainpage" onclick="location.replace('/');">메인페이지</div>
+
+        <div class="int-area2">
+
+            <label id="click_watcha_label" for="click_watcha">WATCHA</label>
+            <input type="radio" id="click_watcha" name="userOTT" value="WATCHA"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_netflix_label" for="click_netflix">NETFLIX</label>
+            <input type="radio" id="click_netflix" name="userOTT" value="NETFLIX"
+                   autocomplete="off" style="margin-right:44px" required checked>
+
+            <label id="click_wavve_label" for="click_wavve">WAVVE</label>
+            <input type="radio" id="click_wavve" name="userOTT" value="WAVVE"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_Disney_label" for="click_Disney">Disney Plus</label>
+            <input type="radio" id="click_Disney" name="userOTT" value="Disney Plus"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_tving_label" for="click_tving">TVING</label>
+            <input type="radio" id="click_tving" name="userOTT" value="TVING"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_Seezn_label" for="click_Seezn">Seezn</label>
+            <input type="radio" id="click_Seezn" name="userOTT" value="Seezn"
+                   autocomplete="off" required>
+
+            <label id="label_OTT">OTT</label></br>
+
+        </div>
+
+        <div class="int-area">
+            <input type="text" id="other_platform_userid" name="userid" onkeyup="enterkey(e)" autocomplete="off" required>
+            <label for="other_platform_userid">EMAIL/ID</label></br>
+        </div>
+        <!-- <div class="int-area">
+            <input type="text" id="other_platform_password" name="pwd" onkeyup="enterkey(e)" autocomplete="off" required>
+            <label for="other_platform_userid">PASSWORD</label></br>
+        </div> -->
+
+        <div class="btn-area">
+            <button class="btn" type="submit" id="btn" onclick="addToDo()">추가하기</button>
+        </div>
+    </form>
+
+    <div id="board-list">
+        <div class="container" style="position: relative; top: 100px;">
+            <table class="board-table">
+                <thead>
+
+                    <td scope="col" class="th-ott">연동할 OTT 플랫폼</td>
+                    <td scope="col" class="th-id">ID</td>
+                    <td scope="col" class="th-date">등록일시</td>
+                    <!-- <td scope="col" class="th-date">수정/삭제</td> -->
+                   <td scope="col" class="th-remove">수정/삭제</td>
+                </thead>
+
+                <tbody class="listBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
     *
@@ -388,75 +474,3 @@
     }
 
 </style>
-
-<body>
-<div class="EveryDay"><a href="/">Every Day</a></div>
-<nav class="header">
-    <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="././view/img/connection.png"></a></li>
-        <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
-    </ul>
-</nav>
-<section class="signup-form">
-    <form action="">
-        <div class="mainpage" onclick="location.replace('/');">메인페이지</div>
-
-        <div class="int-area2">
-
-            <label id="click_watcha_label" for="click_watcha">WATCHA</label>
-            <input type="radio" id="click_watcha" name="userOTT" value="WATCHA"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_netflix_label" for="click_netflix">NETFLIX</label>
-            <input type="radio" id="click_netflix" name="userOTT" value="NETFLIX"
-                   autocomplete="off" style="margin-right:44px" required checked>
-
-            <label id="click_wavve_label" for="click_wavve">WAVVE</label>
-            <input type="radio" id="click_wavve" name="userOTT" value="WAVVE"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_Disney_label" for="click_Disney">Disney Plus</label>
-            <input type="radio" id="click_Disney" name="userOTT" value="Disney Plus"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_tving_label" for="click_tving">TVING</label>
-            <input type="radio" id="click_tving" name="userOTT" value="TVING"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_Seezn_label" for="click_Seezn">Seezn</label>
-            <input type="radio" id="click_Seezn" name="userOTT" value="Seezn"
-                   autocomplete="off" required>
-
-            <label id="label_OTT">OTT</label></br>
-
-        </div>
-
-        <div class="int-area">
-            <input type="text" id="other_platform_userid" name="userid" onkeyup="enterkey(e)" autocomplete="off" required>
-            <label for="other_platform_userid">ID</label></br>
-        </div>
-
-        <div class="btn-area">
-            <button class="btn" type="submit" id="btn" onclick="addToDo()">추가하기</button>
-        </div>
-    </form>
-
-    <div id="board-list">
-        <div class="container" style="position: relative; top: 100px;">
-            <table class="board-table">
-                <thead>
-
-                    <td scope="col" class="th-ott">연동할 OTT 플랫폼</td>
-                    <td scope="col" class="th-id">ID</td>
-                    <td scope="col" class="th-date">등록일시</td>
-<!--                    <td scope="col" class="th-remove">삭제</td>-->
-                </thead>
-
-                <tbody class="listBody">
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
-</body>

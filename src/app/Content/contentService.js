@@ -28,3 +28,17 @@ exports.userInterest = async function (tagId,userIdResult) {
         return errResponse(baseResponse.DB_ERROR);
     }
 };
+
+exports.updatePlatform = async function (InsertQuery) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+        const userInterestResult = await contentDao.insertUserPlatform(connection, InsertQuery);
+        connection.release();
+        return response(baseResponse.SUCCESS);
+
+
+    } catch (err) {
+        logger.error(`App - createUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+};
