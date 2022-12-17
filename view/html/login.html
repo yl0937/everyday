@@ -1,3 +1,43 @@
+<body>
+    <div class="EveryDay"><a href="/">Every Day</a></div>
+    <nav class="header">
+        <ul class="nav-left">
+            <li><a href="/connectPage"><img class="menu_icon" src="././view/img/connection.png"></a></li>
+            <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
+        </ul>
+    </nav>
+    <section class="login-form">
+        <form action="">
+            <div class="btnLogin" onclick="location.replace('/signUpPage');" >회원가입</div>
+    
+            <div class="int-area">
+                <input type="text" id="userid" name="userid" autocomplete="off" required>
+                <label for="userid">ID</label></br>
+            </div>
+    
+            <div class="int-area">
+                <input type="password" id="password" name="password" autocomplete="off" required>
+                <label for="password" onkeyup="enterkey(e)">PASSWORD</label></br>
+            </div>
+    
+            <div>
+                <a><img class="kakao_icon" onclick="kakao()" src="/kakaoicon"></a>
+                <a><img class="naver_icon" onclick="naver()" src="/navericon"></a>
+            </div>
+    
+            <div class="btn-area">
+                <button class="btn" type="submit" id="btn" onclick="login()">LOGIN</button>
+            </div>
+        </form>
+    
+        <div class="caption">
+            <a href="">Forgot Password?</a>
+        </div>
+    
+    </section>
+    
+    </body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script type=text/javascript src="index.html"></script>
@@ -333,42 +373,3 @@
         margin-top: 13px;
     }
 </style>
-<body>
-<div class="EveryDay"><a href="/">Every Day</a></div>
-<nav class="header">
-    <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="././view/img/connection.png"></a></li>
-        <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
-    </ul>
-</nav>
-<section class="login-form">
-    <form action="">
-        <div class="btnLogin" onclick="location.replace('/signUpPage');" >회원가입</div>
-
-        <div class="int-area">
-            <input type="text" id="userid" name="userid" autocomplete="off" required>
-            <label for="userid">ID</label></br>
-        </div>
-
-        <div class="int-area">
-            <input type="password" id="password" name="password" autocomplete="off" required>
-            <label for="password" onkeyup="enterkey(e)">PASSWORD</label></br>
-        </div>
-
-        <div>
-            <a><img class="kakao_icon" onclick="kakao()" src="/kakaoicon"></a>
-            <a><img class="naver_icon" onclick="naver()" src="/navericon"></a>
-        </div>
-
-        <div class="btn-area">
-            <button class="btn" type="submit" id="btn" onclick="login()">LOGIN</button>
-        </div>
-    </form>
-
-    <div class="caption">
-        <a href="">Forgot Password?</a>
-    </div>
-
-</section>
-
-</body>

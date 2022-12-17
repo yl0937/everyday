@@ -1,3 +1,105 @@
+<body>
+
+    <div class="EveryDay"><a href="/">Every Day</a></div>
+    <nav class="header">
+        <ul class="nav-left">
+            <li><a href="/connectPage"><img class="menu_icon" src="/menuIcon"></a></li>
+            <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
+        </ul>
+    </nav>
+    <section class="survey-view">
+    
+        <div class="survey-content"  style="margin-top: 150px;">
+            <label class="question">계정이 있는 플랫폼은 무엇인가요?</label><br>
+            <input type="button" style="margin-bottom: 100px;" class="genre_btn" onclick="color_change(this)" value="WATCHA"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="NETFLIX"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="WAVVE"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="Disney Plus"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="TVING"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="Seezn"/>
+        </div>
+    
+        <!-- <hr style="border:0; height: 1px; background:#999; margin-bottom: 100px"> -->
+    
+        <div class="survey-content">
+            <label class="question">좋아하는 장르는 무엇인가요?</label><br>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="액션"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="코미디"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="다큐멘터리"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="판타지"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="공포"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="음악"/><br>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="로맨스"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="스포츠"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="서부"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="유럽"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="애니메이션"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="범죄"/><br>
+            <input type="button" style="margin-bottom: 100px;" class="genre_btn" onclick="color_change(this)" value="드라마"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="역사"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="가족"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="스릴러"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="SF"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="전쟁"/>
+            <input type="button" class="genre_btn" onclick="color_change(this)" value="Reality TV"/>
+        </div>
+    
+        <div class="survey-content">
+            <label class="question">최근에 재밌게 봤던 콘텐츠는 무엇인가요?</label><br>
+            <img id="15" class="recent_con_img" onclick="getValue('15')" src="https://images.justwatch.com/poster/242528158/s592/mobeomtaegsi" style="display  : block">
+            <img id="16" class="recent_con_img" onclick="getValue('16')" src="/interest8" style="display  : none">
+            <img id="17" class="recent_con_img" onclick="getValue('17')" src="https://images.justwatch.com/poster/301434262/s592/earthstorm">
+            <img id="18" class="recent_con_img" onclick="getValue('18')" src="/interest9" style="display  : none">
+            <img id="19" class="recent_con_img" onclick="getValue('19')" src="https://images.justwatch.com/poster/297943593/s592/jageun-assideul-2022">
+            <img id="20" class="recent_con_img" onclick="getValue('20')" src="/interest10" style="display  : none">
+            <img id="21" class="recent_con_img" onclick="getValue('21')" src="https://images.justwatch.com/poster/298280095/s592/decision-to-leave">
+            <img id="22" class="recent_con_img" onclick="getValue('22')" src="/interest11" style="display  : none">
+            <img id="23" class="recent_con_img" onclick="getValue('23')" src="https://images.justwatch.com/poster/301235989/s592/syurub">
+            <img id="24" class="recent_con_img" onclick="getValue('24')" src="/interest12" style="display  : none">
+            <img id="25" class="recent_con_img" onclick="getValue('25')" src="https://images.justwatch.com/poster/289372453/s592/elbiseu">
+            <img id="26" class="recent_con_img" onclick="getValue('26')" src="/interest13" style="display  : none">
+            <img id="27" class="recent_con_img" onclick="getValue('27')" src="https://images.justwatch.com/poster/278990257/s592/peosipig">
+            <img id="28" class="recent_con_img" onclick="getValue('28')" src="/interest14" style="display  : none">
+        </div>
+    
+    
+        <div class="survey-content">
+            <label class="question">가장 좋아하는 콘텐츠는 무엇인가요?</label><br>
+            <img id="1" class="recent_con_img" onclick="getValue('1')" src="https://images.justwatch.com/poster/292757027/s592/the-roundup" style="display  : block">
+            <img id="2" class="recent_con_img" onclick="getValue('2')" src="/interest1" style="display  : none">
+            <img id="3" class="recent_con_img" onclick="getValue('3')" src="https://images.justwatch.com/poster/176267183/s592/avatar">
+            <img id="4" class="recent_con_img" onclick="getValue('4')" src="/interest2" style="display  : none">
+            <img id="5" class="recent_con_img" onclick="getValue('5')" src="https://images.justwatch.com/poster/251148303/s592/harry-potter-and-the-philosophers-stone">
+            <img id="6" class="recent_con_img" onclick="getValue('6')" src="/interest3" style="display  : none">
+            <img id="7" class="recent_con_img" onclick="getValue('7')" src="https://images.justwatch.com/poster/289375150/s592/nope">
+            <img id="8" class="recent_con_img" onclick="getValue('8')" src="/interest4" style="display  : none">
+            <img id="9" class="recent_con_img" onclick="getValue('9')" src="https://images.justwatch.com/poster/300653244/s592/surinam">
+            <img id="10" class="recent_con_img" onclick="getValue('10')" src="/interest5" style="display  : none">
+            <img id="11" class="recent_con_img" onclick="getValue('11')" src="https://images.justwatch.com/poster/300542581/s592/weonpiseu">
+            <img id="12" class="recent_con_img" onclick="getValue('12')" src="/interest6" style="display  : none">
+            <img id="13" class="recent_con_img" onclick="getValue('13')" src="https://images.justwatch.com/poster/300559662/s592/jeongjighan-hubo-2">
+            <img id="14" class="recent_con_img" onclick="getValue('14')" src="/interest7" style="display  : none">
+        </div>
+    
+        <div class="survey-content">
+            <label class="question">관심있는 연예인은 누구인가요?</label><br>
+            <img class="recent_con_img" src="/iu">
+            <img class="recent_con_img" src="/timothee">
+            <img class="recent_con_img" src="/lee">
+            <img class="recent_con_img" src="/goeun">
+            <img class="recent_con_img" src="/yohanson">
+            <img class="recent_con_img" src="/tomcruse">
+            <img class="recent_con_img" src="/willSmith">
+        </div>
+        <div>
+            <input type="button" class="genre_btn" onclick="submit()" value="제출"/>
+        </div>
+    
+    </section>
+    </body>
+    
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -441,104 +543,3 @@
     }
 
 </style>
-
-<body>
-
-<div class="EveryDay"><a href="/">Every Day</a></div>
-<nav class="header">
-    <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="/menuIcon"></a></li>
-        <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li>
-    </ul>
-</nav>
-<section class="survey-view">
-
-    <div class="survey-content"  style="margin-top: 150px;">
-        <label class="question">계정이 있는 플랫폼은 무엇인가요?</label><br>
-        <input type="button" style="margin-bottom: 100px;" class="genre_btn" onclick="color_change(this)" value="WATCHA"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="NETFLIX"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="WAVVE"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="Disney Plus"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="TVING"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="Seezn"/>
-    </div>
-
-    <!-- <hr style="border:0; height: 1px; background:#999; margin-bottom: 100px"> -->
-
-    <div class="survey-content">
-        <label class="question">좋아하는 장르는 무엇인가요?</label><br>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="액션"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="코미디"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="다큐멘터리"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="판타지"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="공포"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="음악"/><br>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="로맨스"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="스포츠"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="서부"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="유럽"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="애니메이션"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="범죄"/><br>
-        <input type="button" style="margin-bottom: 100px;" class="genre_btn" onclick="color_change(this)" value="드라마"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="역사"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="가족"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="스릴러"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="SF"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="전쟁"/>
-        <input type="button" class="genre_btn" onclick="color_change(this)" value="Reality TV"/>
-    </div>
-
-    <div class="survey-content">
-        <label class="question">최근에 재밌게 봤던 콘텐츠는 무엇인가요?</label><br>
-        <img id="15" class="recent_con_img" onclick="getValue('15')" src="https://images.justwatch.com/poster/242528158/s592/mobeomtaegsi" style="display  : block">
-        <img id="16" class="recent_con_img" onclick="getValue('16')" src="/interest8" style="display  : none">
-        <img id="17" class="recent_con_img" onclick="getValue('17')" src="https://images.justwatch.com/poster/301434262/s592/earthstorm">
-        <img id="18" class="recent_con_img" onclick="getValue('18')" src="/interest9" style="display  : none">
-        <img id="19" class="recent_con_img" onclick="getValue('19')" src="https://images.justwatch.com/poster/297943593/s592/jageun-assideul-2022">
-        <img id="20" class="recent_con_img" onclick="getValue('20')" src="/interest10" style="display  : none">
-        <img id="21" class="recent_con_img" onclick="getValue('21')" src="https://images.justwatch.com/poster/298280095/s592/decision-to-leave">
-        <img id="22" class="recent_con_img" onclick="getValue('22')" src="/interest11" style="display  : none">
-        <img id="23" class="recent_con_img" onclick="getValue('23')" src="https://images.justwatch.com/poster/301235989/s592/syurub">
-        <img id="24" class="recent_con_img" onclick="getValue('24')" src="/interest12" style="display  : none">
-        <img id="25" class="recent_con_img" onclick="getValue('25')" src="https://images.justwatch.com/poster/289372453/s592/elbiseu">
-        <img id="26" class="recent_con_img" onclick="getValue('26')" src="/interest13" style="display  : none">
-        <img id="27" class="recent_con_img" onclick="getValue('27')" src="https://images.justwatch.com/poster/278990257/s592/peosipig">
-        <img id="28" class="recent_con_img" onclick="getValue('28')" src="/interest14" style="display  : none">
-    </div>
-
-
-    <div class="survey-content">
-        <label class="question">가장 좋아하는 콘텐츠는 무엇인가요?</label><br>
-        <img id="1" class="recent_con_img" onclick="getValue('1')" src="https://images.justwatch.com/poster/292757027/s592/the-roundup" style="display  : block">
-        <img id="2" class="recent_con_img" onclick="getValue('2')" src="/interest1" style="display  : none">
-        <img id="3" class="recent_con_img" onclick="getValue('3')" src="https://images.justwatch.com/poster/176267183/s592/avatar">
-        <img id="4" class="recent_con_img" onclick="getValue('4')" src="/interest2" style="display  : none">
-        <img id="5" class="recent_con_img" onclick="getValue('5')" src="https://images.justwatch.com/poster/251148303/s592/harry-potter-and-the-philosophers-stone">
-        <img id="6" class="recent_con_img" onclick="getValue('6')" src="/interest3" style="display  : none">
-        <img id="7" class="recent_con_img" onclick="getValue('7')" src="https://images.justwatch.com/poster/289375150/s592/nope">
-        <img id="8" class="recent_con_img" onclick="getValue('8')" src="/interest4" style="display  : none">
-        <img id="9" class="recent_con_img" onclick="getValue('9')" src="https://images.justwatch.com/poster/300653244/s592/surinam">
-        <img id="10" class="recent_con_img" onclick="getValue('10')" src="/interest5" style="display  : none">
-        <img id="11" class="recent_con_img" onclick="getValue('11')" src="https://images.justwatch.com/poster/300542581/s592/weonpiseu">
-        <img id="12" class="recent_con_img" onclick="getValue('12')" src="/interest6" style="display  : none">
-        <img id="13" class="recent_con_img" onclick="getValue('13')" src="https://images.justwatch.com/poster/300559662/s592/jeongjighan-hubo-2">
-        <img id="14" class="recent_con_img" onclick="getValue('14')" src="/interest7" style="display  : none">
-    </div>
-
-    <div class="survey-content">
-        <label class="question">관심있는 연예인은 누구인가요?</label><br>
-        <img class="recent_con_img" src="/iu">
-        <img class="recent_con_img" src="/timothee">
-        <img class="recent_con_img" src="/lee">
-        <img class="recent_con_img" src="/goeun">
-        <img class="recent_con_img" src="/yohanson">
-        <img class="recent_con_img" src="/tomcruse">
-        <img class="recent_con_img" src="/willSmith">
-    </div>
-    <div>
-        <input type="button" class="genre_btn" onclick="submit()" value="제출"/>
-    </div>
-
-</section>
-
-</body>

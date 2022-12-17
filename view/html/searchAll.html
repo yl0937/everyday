@@ -1,3 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <meta charset="UTF-8">
+    <title>Evey Day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body onload="searchName()">
+    <nav class="header">
+        <ul class="nav-left">
+            <li><a href="/connectPage"><img class="menu_icon" src="/menuIcon"></a></li>
+            <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
+        </ul>
+    <!--    <ul id="nav-right">-->
+           <!-- <li><a href=""><span id="loginName"></span></a></li>
+           <li><a href="/wishListPage"><img id="do_like_icon" src="/likeicon"></a></li>
+           <li><a href="/loginPage"><img id="login_icon" src="/loginicon"></a></li>
+           <li><a><img id="logout_icon" src="/logouticon" onclick="logout()"></a></li>
+       </ul> -->
+    </nav>
+    
+    <div class="EveryDay"><a href="/">Every Day</a></div>
+    
+    <section class="main-form">
+        <div class="searchArea">
+            <form>
+                <input type="search" id="search"placeholder="콘텐츠를 지금 바로 검색하세요.">
+                <a href=""><img type="button" class="search_icon" src="/searchicon" onclick="setCookie()"></a>
+            </form>
+        </div>
+    </section>
+    
+    <section class="search-view">
+        <span id="search-total">검색 결과 건</span>
+        <div class="search-content">
+            <ul id="content">
+            </ul>
+        </div>
+    </section>
+    
+</body>
+</html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script type="text/javascript" src="index.html"></script>
@@ -131,16 +175,7 @@
         }
     }
 </script>
-
-<!DOCTYPE html>
-<html lang="en">
-<head> <meta charset="UTF-8">
-    <title>Evey Day</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body onload="searchName()">
+    
 <style>
 
     @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
@@ -414,38 +449,3 @@
     }
 
 </style>
-
-<nav class="header">
-    <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="/menuIcon"></a></li>
-        <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
-    </ul>
-<!--    <ul id="nav-right">-->
-       <!-- <li><a href=""><span id="loginName"></span></a></li>
-       <li><a href="/wishListPage"><img id="do_like_icon" src="/likeicon"></a></li>
-       <li><a href="/loginPage"><img id="login_icon" src="/loginicon"></a></li>
-       <li><a><img id="logout_icon" src="/logouticon" onclick="logout()"></a></li>
-   </ul> -->
-</nav>
-
-<div class="EveryDay"><a href="/">Every Day</a></div>
-
-<section class="main-form">
-    <div class="searchArea">
-        <form>
-            <input type="search" id="search"placeholder="콘텐츠를 지금 바로 검색하세요.">
-            <a href=""><img type="button" class="search_icon" src="/searchicon" onclick="setCookie()"></a>
-        </form>
-    </div>
-</section>
-
-<section class="search-view">
-    <span id="search-total">검색 결과 건</span>
-    <div class="search-content">
-        <ul id="content">
-        </ul>
-    </div>
-</section>
-
-</body>
-</html>

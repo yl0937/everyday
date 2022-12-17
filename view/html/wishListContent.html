@@ -2,88 +2,131 @@
 <html lang="en">
 <head> <meta charset="UTF-8">
     <title>Test Web Site</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-
-        function check()
-        {
-            let token = getCookie('jwt');
-            if (token.length==0){
-                location.replace('/loginPage')
-            }else{
-                var ajax = $.ajax({
-                    url: "/liked-list",
-                    type: 'POST',
-                    data: ({"userId" : token}),
-                    success: function (response) {
-                        likeList = response.result;
-                        if(response.code==1000)
-                        {
-                            for(var i=0;i<likeList.length;i++)
-                            {
-                                $("#like-content").append("<a href=\"\"><img class=\"content_img\" src=" +likeList[i].csSrc+ "></a>");
-                            }
-                        }
-                    }
-                });
-                var ajax = $.ajax({
-                    url: "/recommend",
-                    type: 'POST',
-                    data: ({"userId" : token}),
-                    success: function (response) {
-                        recommend = response.result;
-                        if(response.code==1000)
-                        {
-                            for(var i=0;i<recommend.length;i++)
-                            {
-                                $("#recommen-list").append("<a href=\"\"><img class=\"content_img\" src=" +recommend[i].src+ "></a>");
-                            }
-                        }
-                    }
-                });
-            }
-
-        }
-
-
-        function getCookie(name) {
-            var nameOfCookie = name+"=";
-            var x = 0;
-            while (x <= document.cookie.length) {
-                var y = (x + nameOfCookie.length);
-                if (document.cookie.substring(x, y) == nameOfCookie) {
-                    if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
-                        endOfCookie = document.cookie.length;
-                    return unescape(document.cookie.substring(y, endOfCookie));
-                }
-                x = document.cookie.indexOf(" ", x) + 1;
-                if (x == 0)
-                    break;
-            }
-            return "";
-        }
-
-        count = 0
-        function check_wish() {
-            count = count+1
-
-            if(count % 2 == 1) {
-                document.getElementById("do_like_icon").src = "/dontlikeicon"
-            }
-            else if(count %2 == 0) {
-                document.getElementById("do_like_icon").src = "/likeicon"
-            }
-        }
-
-        function detail_content() {
-            document.getElementById("do_detail_icon").src = "/detailicon"
-        }
-    </script>
 </head>
 <body onload="check()">
+<div class= "blackrec"></div>
+<div class="EveryDay"><a href="/">Every Day</a></div>
+<nav class="header">
+    <ul class="nav-left">
+        <li><a href=""><img class="menu_icon" src="/menuicon"></a></li>
+        <li><a href=""><span class="Menu">Menu</span></a></li>
+
+        <!-- <button onclick="location.href='/loginPage'">로그인</button> -->
+    </ul>
+    <ul class="nav-right">
+        <li><a href=""><span class="KR">KR</span></a></li>
+        <li><a href=""><span class="EN">EN</span></a></li>
+        <li><a href="/loginPage"><img class="login_icon" src="/loginicon"></a></li>
+    </ul>
+</nav>
+
+<section class="main-form">
+    <div class="searchArea">
+        <form>
+            <input type="search" placeholder="콘텐츠를 지금 바로 검색하세요.">
+            <a href=""><img class="search_icon" src="/searchicon"></a>
+        </form>
+    </div>
+</section>
+
+<section class="search-view">
+    <span class="sub_title">추천 콘텐츠</span>
+    <div id="recommen-list" class="content-list">
+        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/293728461/s592/chesapeake-shores"></a>
+        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/255322901/s592/geu-hae-urineun"></a>
+        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/54780544/s592/united-93"></a>
+        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/301434631/s592/mobeu-saiko-100"></a>
+        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/266002456/s592/nope"></a>
+    </div>
+    <span class="sub_title">찜한 콘텐츠</span>
+    <div id="like-content" class="content-list">
+    </div>
+</section>
+
+</body>
+</html>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function check()
+    {
+        let token = getCookie('jwt');
+        if (token.length==0){
+            location.replace('/loginPage')
+        }else{
+            var ajax = $.ajax({
+                url: "/liked-list",
+                type: 'POST',
+                data: ({"userId" : token}),
+                success: function (response) {
+                    likeList = response.result;
+                    if(response.code==1000)
+                    {
+                        for(var i=0;i<likeList.length;i++)
+                        {
+                            $("#like-content").append("<a href=\"\"><img class=\"content_img\" src=" +likeList[i].csSrc+ "></a>");
+                        }
+                    }
+                }
+            });
+            var ajax = $.ajax({
+                url: "/recommend",
+                type: 'POST',
+                data: ({"userId" : token}),
+                success: function (response) {
+                    recommend = response.result;
+                    if(response.code==1000)
+                    {
+                        for(var i=0;i<recommend.length;i++)
+                        {
+                            $("#recommen-list").append("<a href=\"\"><img class=\"content_img\" src=" +recommend[i].src+ "></a>");
+                        }
+                    }
+                }
+            });
+        }
+
+    }
+
+
+    function getCookie(name) {
+        var nameOfCookie = name+"=";
+        var x = 0;
+        while (x <= document.cookie.length) {
+            var y = (x + nameOfCookie.length);
+            if (document.cookie.substring(x, y) == nameOfCookie) {
+                if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+                    endOfCookie = document.cookie.length;
+                return unescape(document.cookie.substring(y, endOfCookie));
+            }
+            x = document.cookie.indexOf(" ", x) + 1;
+            if (x == 0)
+                break;
+        }
+        return "";
+    }
+
+    count = 0
+    function check_wish() {
+        count = count+1
+
+        if(count % 2 == 1) {
+            document.getElementById("do_like_icon").src = "/dontlikeicon"
+        }
+        else if(count %2 == 0) {
+            document.getElementById("do_like_icon").src = "/likeicon"
+        }
+    }
+
+    function detail_content() {
+        document.getElementById("do_detail_icon").src = "/detailicon"
+    }
+</script>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
@@ -295,45 +338,3 @@
     }
 
 </style>
-
-<div class= "blackrec"></div>
-<div class="EveryDay"><a href="/">Every Day</a></div>
-<nav class="header">
-    <ul class="nav-left">
-        <li><a href=""><img class="menu_icon" src="/menuicon"></a></li>
-        <li><a href=""><span class="Menu">Menu</span></a></li>
-
-        <!-- <button onclick="location.href='/loginPage'">로그인</button> -->
-    </ul>
-    <ul class="nav-right">
-        <li><a href=""><span class="KR">KR</span></a></li>
-        <li><a href=""><span class="EN">EN</span></a></li>
-        <li><a href="/loginPage"><img class="login_icon" src="/loginicon"></a></li>
-    </ul>
-</nav>
-
-<section class="main-form">
-    <div class="searchArea">
-        <form>
-            <input type="search" placeholder="콘텐츠를 지금 바로 검색하세요.">
-            <a href=""><img class="search_icon" src="/searchicon"></a>
-        </form>
-    </div>
-</section>
-
-<section class="search-view">
-    <span class="sub_title">추천 콘텐츠</span>
-    <div id="recommen-list" class="content-list">
-        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/293728461/s592/chesapeake-shores"></a>
-        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/255322901/s592/geu-hae-urineun"></a>
-        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/54780544/s592/united-93"></a>
-        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/301434631/s592/mobeu-saiko-100"></a>
-        <a href="\"><img class="content_img" src="https://images.justwatch.com/poster/266002456/s592/nope"></a>
-    </div>
-    <span class="sub_title">찜한 콘텐츠</span>
-    <div id="like-content" class="content-list">
-    </div>
-</section>
-
-</body>
-</html>

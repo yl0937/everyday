@@ -1,3 +1,78 @@
+<body onload="appenList()">
+<div class="EveryDay"><a href="/">Every Day</a></div>
+<nav class="header">
+    <ul class="nav-left">
+        <li><a href="/connectPage"><img class="menu_icon" src="/menuicon"></a></li>
+        <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
+    </ul>
+</nav>
+<section class="signup-form">
+    <form action="">
+        <div class="mainpage" onclick="location.replace('/');">메인페이지</div>
+
+        <div class="int-area2">
+
+            <label id="click_watcha_label" for="click_watcha">WATCHA</label>
+            <input type="radio" id="click_watcha" name="userOTT" value="WATCHA"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_netflix_label" for="click_netflix">NETFLIX</label>
+            <input type="radio" id="click_netflix" name="userOTT" value="NETFLIX"
+                   autocomplete="off" style="margin-right:44px" required checked>
+
+            <label id="click_wavve_label" for="click_wavve">WAVVE</label>
+            <input type="radio" id="click_wavve" name="userOTT" value="WAVVE"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_Disney_label" for="click_Disney">Disney Plus</label>
+            <input type="radio" id="click_Disney" name="userOTT" value="Disney Plus"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_tving_label" for="click_tving">TVING</label>
+            <input type="radio" id="click_tving" name="userOTT" value="TVING"
+                   autocomplete="off" style="margin-right:44px" required>
+
+            <label id="click_Seezn_label" for="click_Seezn">Seezn</label>
+            <input type="radio" id="click_Seezn" name="userOTT" value="Seezn"
+                   autocomplete="off" required>
+
+            <label id="label_OTT">OTT</label></br>
+
+        </div>
+
+        <div class="int-area">
+            <input type="text" id="other_platform_userid" name="userid" onkeyup="enterkey(e)" autocomplete="off" required>
+            <label for="other_platform_userid">EMAIL/ID</label></br>
+        </div>
+        <!-- <div class="int-area">
+            <input type="text" id="other_platform_password" name="pwd" onkeyup="enterkey(e)" autocomplete="off" required>
+            <label for="other_platform_userid">PASSWORD</label></br>
+        </div> -->
+
+        <div class="btn-area">
+            <button class="btn" type="submit" id="btn" onclick="addToDo()">추가하기</button>
+        </div>
+    </form>
+
+    <div id="board-list">
+        <div class="container" style="position: relative; top: 100px;">
+            <table class="board-table">
+                <thead>
+
+                    <td scope="col" class="th-ott">연동할 OTT 플랫폼</td>
+                    <td scope="col" class="th-id">ID</td>
+                    <td scope="col" class="th-date">등록일시</td>
+                    <!-- <td scope="col" class="th-date">수정/삭제</td> -->
+                   <td scope="col" class="th-remove">수정/삭제</td>
+                </thead>
+
+                <tbody class="listBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     function appenList(){
@@ -129,81 +204,6 @@
     }
 
 </script>
-<body onload="appenList()">
-<div class="EveryDay"><a href="/">Every Day</a></div>
-<nav class="header">
-    <ul class="nav-left">
-        <li><a href="/connectPage"><img class="menu_icon" src="/menuicon"></a></li>
-        <!-- <li><a href="/connectPage"><span class="Menu">계정연동</span></a></li> -->
-    </ul>
-</nav>
-<section class="signup-form">
-    <form action="">
-        <div class="mainpage" onclick="location.replace('/');">메인페이지</div>
-
-        <div class="int-area2">
-
-            <label id="click_watcha_label" for="click_watcha">WATCHA</label>
-            <input type="radio" id="click_watcha" name="userOTT" value="WATCHA"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_netflix_label" for="click_netflix">NETFLIX</label>
-            <input type="radio" id="click_netflix" name="userOTT" value="NETFLIX"
-                   autocomplete="off" style="margin-right:44px" required checked>
-
-            <label id="click_wavve_label" for="click_wavve">WAVVE</label>
-            <input type="radio" id="click_wavve" name="userOTT" value="WAVVE"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_Disney_label" for="click_Disney">Disney Plus</label>
-            <input type="radio" id="click_Disney" name="userOTT" value="Disney Plus"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_tving_label" for="click_tving">TVING</label>
-            <input type="radio" id="click_tving" name="userOTT" value="TVING"
-                   autocomplete="off" style="margin-right:44px" required>
-
-            <label id="click_Seezn_label" for="click_Seezn">Seezn</label>
-            <input type="radio" id="click_Seezn" name="userOTT" value="Seezn"
-                   autocomplete="off" required>
-
-            <label id="label_OTT">OTT</label></br>
-
-        </div>
-
-        <div class="int-area">
-            <input type="text" id="other_platform_userid" name="userid" onkeyup="enterkey(e)" autocomplete="off" required>
-            <label for="other_platform_userid">EMAIL/ID</label></br>
-        </div>
-        <!-- <div class="int-area">
-            <input type="text" id="other_platform_password" name="pwd" onkeyup="enterkey(e)" autocomplete="off" required>
-            <label for="other_platform_userid">PASSWORD</label></br>
-        </div> -->
-
-        <div class="btn-area">
-            <button class="btn" type="submit" id="btn" onclick="addToDo()">추가하기</button>
-        </div>
-    </form>
-
-    <div id="board-list">
-        <div class="container" style="position: relative; top: 100px;">
-            <table class="board-table">
-                <thead>
-
-                    <td scope="col" class="th-ott">연동할 OTT 플랫폼</td>
-                    <td scope="col" class="th-id">ID</td>
-                    <td scope="col" class="th-date">등록일시</td>
-                    <!-- <td scope="col" class="th-date">수정/삭제</td> -->
-                   <td scope="col" class="th-remove">수정/삭제</td>
-                </thead>
-
-                <tbody class="listBody">
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-</body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
     *
