@@ -106,10 +106,42 @@ async function insertUserPlatform(connection,query) {
 
 async function selectUserPlatform(connection,id) {
     const insertPlatformQuery = `
-        select platform, email, date(createdAt) as createdAt from Userpayinfo where userId=?;
+        select platform, email, date(createdAt) as createdAt,id from Userpayinfo where userId=?;
                  `;
     const resultRow = await connection.query(insertPlatformQuery,id);
     return resultRow[0];
+}
+
+async function deleteUserPlatform(connection,id) {
+    const deletePlatformQuery = `
+        delete from Userpayinfo where id = ?;
+                 `;
+    const resultRow = await connection.query(deletePlatformQuery,id);
+    return resultRow[0];
+}
+
+async function insertUserLike(connection,insertInfo) {
+    const insertUserInterestQuery = `
+        insert into likedlist (userId, contentId) values (?,?);
+                 `;
+    const [InsertRow] = await connection.query(insertUserInterestQuery,insertInfo);
+    return InsertRow;
+}
+
+async function deleteUserLike(connection,insertInfo) {
+    const deleteUserInterestQuery = `
+        delete from likedlist where userId = ? and contentId = ?;
+                 `;
+    const [Row] = await connection.query(deleteUserInterestQuery,insertInfo);
+    return Row;
+}
+
+async function retriveUrl(connection,insertInfo) {
+    const insertUserInterestQuery = `
+        select url from Contentplatform where platformId in (select platform from Userpayinfo where userId=?) and contentId=? LIMIT 1;
+                 `;
+    const [InsertRow] = await connection.query(insertUserInterestQuery,insertInfo);
+    return InsertRow;
 }
 
 
@@ -125,5 +157,9 @@ module.exports = {
   selectContentName,
   selectRContent,
   insertUserPlatform,
-  selectUserPlatform
+  deleteUserPlatform,
+  selectUserPlatform,
+    insertUserLike,
+    deleteUserLike,
+    retriveUrl
 };

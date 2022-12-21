@@ -94,19 +94,19 @@
                     var appendList = response.result;
                     for(var i=0;i<appendList.length;i++){
                         var body = document.getElementsByClassName('listBody');
-                        var tr = $("<tr></tr>");
+                        var tr = $("<tr value='abc'></tr>");
                         $(tr).append(
-                            "<td value='a'class='tdplatform' value='"+appendList[i]["platform"]+"'>"+appendList[i]["platform"]+"</td>" + 
+                            "<td value='a'id='tdplatform' "+appendList[i]["platform"]+"'>"+appendList[i]["platform"]+"</td>" +
                             "<td>" + appendList[i]["email"] + "</td>" + 
                             "<td>" + appendList[i]["createdAt"].substr(0,10)+ "</td>" +
-                            "<td><button value='a' class=\"btn\" style=\"width:100px; height: 40px; margin-top: 5px;\" onclick='deleteTodo()' type=\"submit\">삭제하기</button></td>"
+                            "<td value='test'><button value='"+appendList[i]["id"] +"' class=\"btn\" style=\"width:100px; height: 40px; margin-top: 5px;\" onclick='deleteTodo()' type=\"submit\">삭제하기</button></td>"
                         );
                         $(body).append(tr);
                     };
 
                 }
                 else {
-                    alert("실패");
+                    alert("실패")
                 }
             }
         });
@@ -144,17 +144,47 @@
         var other_platform_userid = $("#other_platform_userid");
         var email = $(other_platform_userid).val()
 
-         
+        var emailRegex =  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        if(emailRegex.test(email)==true)
+        {
+            var ajax = $.ajax({
+                url: "/ostInfo",
+                data: (
+                    {"userId" : getCookie('jwt') , "platform" : value, "email" : email}
+                ),
+                type: 'POST',
+                dataType : 'JSON',
+                success: function(response) {
+                    if(response.isSuccess == true) {
+                        alert("성공");
+
+                    }
+                    else {
+                        alert("실패");
+                        // location.replace('/');
+                    }
+                }
+            });
+        }
+        else { alert("이메일 형식으로 입력하십시오.")}
+
+    }
+
+    function deleteTodo(e) {
+        var body = document.getElementById('listBody');
+        var deleteElement = event.target.parentElement.parentElement;
+        var id = event.target.value;
+
         var ajax = $.ajax({
-            url: "/ostInfo",
+            url: "/deletePlatform",
             data: (
-                {"userId" : getCookie('jwt') , "platform" : value, "email" : email}
+                {"id" : id}
             ),
             type: 'POST',
             dataType : 'JSON',
             success: function(response) {
                 if(response.isSuccess == true) {
-                    alert("성공");
+                    location.replace('/connectPage');
 
                 }
                 else {
@@ -164,36 +194,6 @@
             }
         });
 
-    }
-
-    function deleteTodo(e) {
-        var body = document.getElementById('listBody');
-        // alert("delete");
-
-        var deleteElement = event.target.parentElement.parentElement;
-        // var tr = event.target.parentElement.parentElement;
-        // alert(tr.children('td:eq(0)'))
-        deleteElement.remove();
-        
-        // // var thisRow = $(this).closest('tr');
-        // // var platform = thisRow.find('td:eq(0)');
-
-        // var thisRow = $(this).parent().parent();
-        // var td = thisRow.children();
-        // var btn = td.find(".tdplatform").val;
-        // console.log(btn);
-        // console.log(td.find())
-        // console.log(td.eq(0))
-        // alert(td.eq(0).text())
-        // // // alert(JSON.stringify(platform));
-        // // alert(thisRow.text());
-        // // alert(e.value)
-        // // alert($(this).val())
-        // // var body = document.getElementById('listBody');
-        // // alert("delete");
-
-        // // var deleteElement = event.target.parentElement;
-        // // deleteElement.remove();
     }
 
     function enterkey(e)

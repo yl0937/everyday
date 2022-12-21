@@ -42,3 +42,46 @@ exports.updatePlatform = async function (InsertQuery) {
         return errResponse(baseResponse.DB_ERROR);
     }
 };
+
+exports.deleteUserPlatform = async function (id) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+        const Result = await contentDao.deleteUserPlatform(connection, id);
+        connection.release();
+        return response(baseResponse.SUCCESS);
+
+
+    } catch (err) {
+        logger.error(`App - Delete UserPayInfo Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+};
+
+
+exports.postUserLike = async function (InsertQuery) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+        const userInterestResult = await contentDao.insertUserLike(connection, InsertQuery);
+        connection.release();
+        return response(baseResponse.SUCCESS);
+
+
+    } catch (err) {
+        logger.error(`App - PostUserLike Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+};
+
+exports.deleteUserLike = async function (InsertQuery) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+        const userInterestResult = await contentDao.deleteUserLike(connection, InsertQuery);
+        connection.release();
+        return response(baseResponse.SUCCESS);
+
+
+    } catch (err) {
+        logger.error(`App - DeleteUserLike Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+};

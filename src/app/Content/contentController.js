@@ -131,3 +131,53 @@ exports.getUserPlatform = async function (req, res) {
         return res.send(response(baseResponse.SUCCESS,userPlatformResult));
     }
 }
+
+exports.deletePlatform = async function (req, res) {
+    const paltformId = req.body.id;
+    contentService.deleteUserPlatform(paltformId);
+    return res.send(response(baseResponse.SUCCESS));
+}
+
+
+exports.addLike = async function (req, res) {
+    const userId = req.body.id;
+    const contentId = req.body.contentId;
+    const userIdres = await userProvider.retrieveUserId(userId);
+    if(userIdres==undefined){
+        return res.send(response(baseResponse.DB_ERROR));
+    }else{
+        const id = userIdres.id;
+        const InsertQery = [id,contentId]
+        contentService.postUserLike(InsertQery);
+        return res.send(response(baseResponse.SUCCESS));
+    }
+}
+
+exports.deleteLike = async function (req, res) {
+    const userId = req.body.id;
+    const contentId = req.body.contentId;
+    const userIdres = await userProvider.retrieveUserId(userId);
+    if(userIdres==undefined){
+        return res.send(response(baseResponse.DB_ERROR));
+    }else{
+        const id = userIdres.id;
+        const InsertQery = [id,contentId]
+        contentService.deleteUserLike(InsertQery);
+        return res.send(response(baseResponse.SUCCESS));
+    }
+}
+
+exports.getUrl = async function (req, res) {
+    const userId = req.body.id;
+    const contentId = req.body.contentId;
+    const userIdres = await userProvider.retrieveUserId(userId);
+    if(userIdres==undefined){
+        return res.send(response(baseResponse.DB_ERROR));
+    }else{
+        const id = userIdres.id;
+        const Url = [id,contentId]
+        const UrlResult = await contentProvider.retrieveURL(Url);
+        console.log(UrlResult)
+        return res.send(response(baseResponse.SUCCESS,UrlResult));
+    }
+}

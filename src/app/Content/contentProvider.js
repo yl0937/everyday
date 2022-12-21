@@ -95,3 +95,10 @@ exports.retrieveUserPlatform = async function (id) {
     return platform;
 };
 
+exports.retrieveURL = async function (retriveQuery) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const platform = await contentDao.retriveUrl(connection,retriveQuery);
+    connection.release();
+    return platform;
+};
+

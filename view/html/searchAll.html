@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<body onload="searchName()">
+<body onload="getLikedList()">
     <nav class="header">
         <ul class="nav-left">
             <li><a href="/connectPage"><img class="menu_icon" src="/menuIcon"></a></li>
@@ -48,86 +48,94 @@
 <script type="text/javascript">
     let resultList = []
     let list_len = 0
-    var likeIcon = []
-    function searchName() {
-        likeIcon = likecheck()
-        var ajax = $.ajax({
-            url: "/all",
-            type: 'GET',
-            success: function (result) {
-                if(result.code == 1000) {
-                    resultList = result.result;
-                    list_len = resultList.length;
-                    document.getElementById("search-total").innerHTML = "검색결과 " + list_len + "건"
-                    let h = 0
-                    for(let h=0;h<resultList.length;h++)
-                    {
-                        const img = resultList[h]["src"];
-                        const name = resultList[h]["name"];
-                        const platform = resultList[h]["platform"];
-                        const actor = resultList[h]["actor"];
-                        const explain = resultList[h]["explain"];
-                        var likeName = ""
-                        for(var j=0;j<likeIcon.length;j++)
+    const likedList = []
+    function getLikedList(){
+        let userId = getCookie('jwt');
+
+        if(userId!=""){
+            var ajax = $.ajax({
+                url: "/liked-list",
+                type: 'POST',
+                async: false,
+                data: ({"userId" : userId}),
+                success: function (result) {
+                    if(result.code == 1000) {
+                        resultList = result.result;
+                        list_len = resultList.length;
+                        for(var l=0; l<list_len;l++)
                         {
-                            if(name==likeIcon[j])
+                            likedList.push(resultList[l]["cName"]);
+                        }
+
+                    }
+                    else if(result.code == 4000) {
+                    }
+                }
+            });
+        }
+        searchName()
+    }
+    function searchName() {
+        let name = getCookie('cookie');
+        if(name!="")
+        {
+            location.replace('/searchPage');
+        }
+        else {
+            var ajax = $.ajax({
+                url: "/all",
+                type: 'GET',
+                async: false,
+                success: function (result) {
+                    if(result.code == 1000) {
+                        resultList = result.result;
+                        list_len = resultList.length;
+                        document.getElementById("search-total").innerHTML = "검색결과 " + list_len + "건"
+                        let h = 0
+                        for(let h=0;h<resultList.length;h++)
+                        {
+                            const img = resultList[h]["src"];
+                            const name = resultList[h]["name"];
+                            const platform = resultList[h]["platform"];
+                            const actor = resultList[h]["actor"];
+                            const explain = resultList[h]["explain"];
+                            const cid = resultList[h]["id"];
+
+
+                            if(likedList.includes(name))
                             {
-                                likeName = likeIcon[j]
+                                $("#content").append(
+                                    "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
+                                    "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
+                                    "<li><a href=\"\"><div onclick='urlChange()' id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
+                                    "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
+                                    "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>" +
+                                    "<li value=\"1\"><div id=\"content_interest\"><img id="+ cid+" src=\"/dontlikeicon\" width=\"40\" height=\"40\" onclick=\"deleteLike()\"></></div></li>"+
+                                    "<li><a href=\"\"><div id=\"content_detail\"><label><img id="+ cid+" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"check_wish()\"></label></div></a></li><ul/>"
+                                );
+                            }
+                            else {
+                                $("#content").append(
+                                    "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
+                                    "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
+                                    "<li><a href=\"\"><div onclick='urlChange()' id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
+                                    "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
+                                    "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>" +
+                                    "<li><div id=\"content_interest\"><label><img id="+ cid+" src=\"/likeicon\" width=\"40\" height=\"40\" onclick=\"doLike()\"></label></div></li>"+
+                                    "<li><a href=\"\"><div id=\"content_detail\"><label><img id="+ cid+" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"check_wish()\"></label></div></a></li><ul/>"
+                                );
                             }
 
                         }
-                        if(name==likeName)
-                        {
-                            $("#content").append(
-                                "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>"+
-                                "<li><div id=\"content_interest\"><label><img id=\"do_like_icon\" src=\"/dontlikeicon\" width=\"40\" height=\"40\" onclick=\"check_wish(1)\"></label></div></li>"+
-                                "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"detail_content()\"></label></div></a></li><ul/>"
-                            );
-                        }
-                        else {
-                            $("#content").append(
-                                "<ul><li><a href=\"\"><img id=\"content_img\"src=" + img + "></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_name\"><label>"+ name +"</label></div></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_platform\"><label>"+platform+"</label></div></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_actor\"><label>"+actor+"</label></div></a></li>" +
-                                "<li><a href=\"\"><div id=\"content_story\"><label>"+explain+"</label></div></a></li>" +
-                                "<li><div id=\"content_interest\"><label><img id=\"do_like_icon\" src=\"/likeicon\" width=\"40\" height=\"40\" onclick=\"check_wish(2)\"></label></div></li>"+
-                                "<li><a href=\"\"><div id=\"content_detail\"><label><img id=\"do_detail_icon\" src=\"/dodetailicon\" width=\"45\" height=\"45\" onclick=\"detail_content()\"></label></div></a></li><ul/>"
-                            );
-                        }
+                    }
+                    else if(result.code == 4000) {
+                        alert("검색 정보가 없습니다.");
                     }
                 }
-                else if(result.code == 4000) {
-                    alert("검색 정보가 없습니다.");
-                }
-            }
-        });
-    }
-    function likecheck()
-    {
-        let token = getCookie('jwt');
-        var ajax = $.ajax({
-            url: "/liked-list",
-            type: 'POST',
-            data: ({"userId" : token}),
-            success: function (response) {
-                likeList = response.result;
-                if(response.code==1000)
-                {
+            });
+        }
 
-                    for(var i=0;i<likeList.length;i++)
-                    {
-                        likeIcon.push(likeList[i].cName)
-                    }
 
-                }
-            }
-        });
-        return likeIcon;
     }
 
     function getCookie(name) {
@@ -148,16 +156,74 @@
     }
 
     count = 0
-    function check_wish(value) {
-        count = count+1
-        if(value==1)
+    function doLike(e){
+        var userId = getCookie("jwt");
+        var contentId = event.target.id;
+        if(userId=="")
         {
-            document.getElementById("do_like_icon").src = "/dontlikeicon"
+            alert("로그인이 필요한 서비스입니다.")
+            location.replace('/loginPage')
         }
-        if(value==2)
-        {
-            document.getElementById("do_like_icon").src = "/likeicon"
+        else {
+            var ajax = $.ajax({
+                url: "/addLike",
+                type: 'POST',
+                async: false,
+                data: ({"id" : userId,"contentId": contentId}),
+                success: function (result) {
+                    if(result.code == 1000) {
+                      location.reload()
+
+                    }
+
+                }
+            });
+
         }
+
+    }
+    function deleteLike(e){
+        var userId = getCookie("jwt");
+        var contentId = event.target.id;
+
+        var ajax = $.ajax({
+            url: "/deleteLike",
+            type: 'POST',
+            async: false,
+            data: ({"id" : userId,"contentId": contentId}),
+            success: function (result) {
+                if(result.code == 1000) {
+                    location.reload()
+                }
+
+            }
+        });
+
+    }
+
+    function check_wish(e) {
+        var contentId = event.target.id;
+        var userId = getCookie("jwt");
+
+        var ajax = $.ajax({
+            url: "/contentUrl",
+            type: 'POST',
+            data: ({"id" : userId,"contentId": contentId}),
+            success: function (result) {
+                if(result.code == 1000) {
+
+                    if(result.result[0].length==0){
+                        alert("계정을 연결하여 사용할 수 있습니다.")
+                        location.replace('/connectPage')
+                    }
+                    else{
+                        window.open(result.result[0]["url"]);
+                    }
+
+                }
+
+            }
+        });
     }
 
     function detail_content() {

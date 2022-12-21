@@ -32,6 +32,15 @@ module.exports = function(app){
     app.post('/ostInfo',content.ostInfo);
 
     app.post('/usesPlatform',content.getUserPlatform);
+
+    app.post('/deletePlatform',content.deletePlatform);
+
+    app.post('/addLike',content.addLike);
+    app.post('/deleteLike',content.deleteLike);
+
+    app.post('/contentUrl',content.getUrl);
+
+
 };
 
 
